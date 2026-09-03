@@ -51,6 +51,11 @@ export const TeamPage = ({ user, onNavigateHome, onOpenAuth }) => {
       name: 'Nikhil Nitin Sonawane',
       initials: 'NS',
       email: 'nikhilson306@gmail.com'
+    },
+    {
+      name: 'Sejal Gopal Girase',
+      initials: 'SG',
+      email: 'sejalg992@gmail.com'
     }
   ];
 
