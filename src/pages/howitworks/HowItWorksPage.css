@@ -266,9 +266,9 @@
 
 .proven-stage-display-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 28px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .proven-stage-visualizer-card {
@@ -460,7 +460,8 @@
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 14px 16px;
+  min-width: 0;
 }
 
 .proven-math-icon-badge {
@@ -478,23 +479,31 @@
 
 .proven-math-meta {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .proven-math-head {
   font-size: 0.86rem;
   font-weight: 600;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .proven-math-formula {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #94a3b8;
   margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .proven-math-status.pass {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #4ade80;
   background: rgba(34, 197, 94, 0.12);
@@ -502,6 +511,7 @@
   padding: 3px 8px;
   border-radius: 6px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .proven-vis-stage4 {

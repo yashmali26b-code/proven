@@ -162,9 +162,9 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
   const [activeStage, setActiveStage] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeCodeTab, setActiveCodeTab] = useState('pipeline');
-  const [interactiveAadhaar, setInteractiveAadhaar] = useState('2007 0301 9999');
-  const [interactivePan, setInteractivePan] = useState('ABCPP1234F');
-  const [testSurname, setTestSurname] = useState('PADHYAL');
+  const [interactiveAadhaar, setInteractiveAadhaar] = useState('4532 1234 5678');
+  const [interactivePan, setInteractivePan] = useState('ABCPR1234F');
+  const [testSurname, setTestSurname] = useState('RAJPUT');
 
   const currentStage = PIPELINE_STAGES[activeStage - 1];
 
@@ -369,15 +369,15 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
                         <div className="proven-sim-header">GOVERNMENT OF INDIA</div>
                         <div className="proven-sim-box name-box">
                           <span className="box-tag">NAME (Devanagari / English)</span>
-                          <span className="box-val">SANKET PADHYAL</span>
+                          <span className="box-val">RAHUL SHARMA</span>
                         </div>
                         <div className="proven-sim-box dob-box">
                           <span className="box-tag">DOB (Parsed)</span>
-                          <span className="box-val">01/03/2007 (2007-03-01)</span>
+                          <span className="box-val">15/08/1990 (1990-08-15)</span>
                         </div>
                         <div className="proven-sim-box id-box">
                           <span className="box-tag">DOC NUMBER</span>
-                          <span className="box-val">ABCPP1234F</span>
+                          <span className="box-val">ABCPR1234F</span>
                         </div>
                       </div>
                     </div>
@@ -428,8 +428,8 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
                     <div className="proven-cross-dna-diagram">
                       <div className="proven-dna-card doc1">
                         <div className="dna-title">DOCUMENT 01: PAN</div>
-                        <div className="dna-field">SANKET PADHYAL</div>
-                        <div className="dna-field">2007-03-01</div>
+                        <div className="dna-field">RAHUL SHARMA</div>
+                        <div className="dna-field">1990-08-15</div>
                       </div>
 
                       <div className="proven-dna-core-hub">
@@ -440,8 +440,8 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
 
                       <div className="proven-dna-card doc2">
                         <div className="dna-title">DOCUMENT 02: AADHAAR</div>
-                        <div className="dna-field">PADHYAL SANKET</div>
-                        <div className="dna-field">01/03/2007</div>
+                        <div className="dna-field">SHARMA RAHUL</div>
+                        <div className="dna-field">15/08/1990</div>
                       </div>
                     </div>
                     <div className="proven-dna-verdict-pill">
@@ -571,7 +571,7 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
                     className="proven-sandbox-input"
                     value={testSurname}
                     onChange={(e) => setTestSurname(e.target.value)}
-                    placeholder="PADHYAL"
+                    placeholder="e.g. RAJPUT"
                   />
                 </div>
                 <div className="proven-sandbox-input-wrap">
