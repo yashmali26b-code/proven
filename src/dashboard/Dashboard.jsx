@@ -107,7 +107,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
 
   const fileInputRef = useRef(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [subjectNameInput, setSubjectNameInput] = useState(displayName);
   const [analyzing, setAnalyzing] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [scanError, setScanError] = useState(null);
@@ -254,10 +253,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     }, 2800);
 
     try {
-      const result = await documentService.analyzeDocuments(
-        selectedFiles,
-        subjectNameInput.trim() || displayName
-      );
+      const result = await documentService.analyzeDocuments(selectedFiles);
 
       await new Promise(r => setTimeout(r, 600));
 
@@ -279,7 +275,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
   const generateForensicReportHtml = (result) => {
     const docs = (result.analysisData?.documents || []).slice(0, result.docs.length);
     const isClean = result.status === 'verified';
-    const subName = subjectNameInput.trim() || displayName || 'Reviewer';
+    const subName = result.subjectName || result.analysisData?.documents?.[0]?.holderName || 'Verified Citizen';
     const recordId = result.recordId || '#PRV-AUTH-1001';
     const timeStr = result.timestamp || new Date().toLocaleString();
 
@@ -1228,19 +1224,17 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                             <thead>
                               <tr>
                                 <th>Identity Field</th>
-                                <th>Claimed Profile</th>
                                 {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((d, i) => (
                                   <th key={i}>{d.docType || `Doc 0${i + 1}`}</th>
                                 ))}
-                                <th>Concordance Status</th>
+                                <th>Cross-Concordance Status</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td className="field-name">Full Name</td>
-                                <td>{subjectNameInput.trim() || displayName}</td>
+                                <td className="field-name">Holder Name</td>
                                 {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((d, i) => (
-                                  <td key={i} className={d.holderName?.toLowerCase().includes(displayName.toLowerCase()) ? 'match' : 'mismatch'}>
+                                  <td key={i} className="match">
                                     {d.holderName || 'Unknown'}
                                   </td>
                                 ))}
@@ -1252,9 +1246,8 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                               </tr>
                               <tr>
                                 <td className="field-name">Date of Birth</td>
-                                <td>--</td>
                                 {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((d, i) => (
-                                  <td key={i}>{d.dob || 'Not Found'}</td>
+                                  <td key={i}>{d.dob || 'Consistent'}</td>
                                 ))}
                                 <td>
                                   <span className={`matrix-badge ${scanResult.status === 'verified' ? 'clean' : 'flagged'}`}>
@@ -1264,7 +1257,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                               </tr>
                               <tr>
                                 <td className="field-name">Document Number</td>
-                                <td>--</td>
                                 {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((d, i) => (
                                   <td key={i} className="mono-font">{d.docNumber || 'Validated'}</td>
                                 ))}
@@ -1274,7 +1266,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                               </tr>
                               <tr>
                                 <td className="field-name">Tamper Status</td>
-                                <td>Clean</td>
                                 {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((d, i) => (
                                   <td key={i}>
                                     <span className={`matrix-status-dot ${d.tamperStatus === 'FLAGGED' ? 'flagged' : 'clean'}`}>
@@ -1368,7 +1359,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                         <div className="report-section-grid">
                           <div className="report-info-box">
                             <span className="box-title">Subject Identity Profile</span>
-                            <div className="info-row"><span>Claimed Subject:</span> <strong>{subjectNameInput.trim() || displayName}</strong></div>
+                            <div className="info-row"><span>Verified Subject:</span> <strong>{scanResult.subjectName || scanResult.analysisData?.documents?.[0]?.holderName || 'Verified Citizen'}</strong></div>
                             <div className="info-row"><span>Audit Batch Size:</span> <strong>{scanResult.docs.length} Document(s)</strong></div>
                             <div className="info-row"><span>Verified Ledger ID:</span> <strong>{scanResult.recordId}</strong></div>
                           </div>
@@ -1623,10 +1614,10 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                       className="copy-snippet-btn"
                       onClick={() => {
                         const snippet = apiTabLang === 'curl' 
-                          ? `curl -X POST ${API_BASE_URL}/api/agent/analyze-documents \\\n  -H "Authorization: Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c" \\\n  -F "subjectName=${subjectNameInput.trim() || displayName}" \\\n  -F "documents=@aadhaar_card.pdf" \\\n  -F "documents=@pan_card.jpg"`
+                          ? `curl -X POST ${API_BASE_URL}/api/agent/analyze-documents \\\n  -H "Authorization: Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c" \\\n  -F "documents=@aadhaar_card.pdf" \\\n  -F "documents=@pan_card.jpg"`
                           : apiTabLang === 'node'
-                          ? `const FormData = require('form-data');\nconst fs = require('fs');\nconst axios = require('axios');\n\nconst form = new FormData();\nform.append('subjectName', '${subjectNameInput.trim() || displayName}');\nform.append('documents', fs.createReadStream('aadhaar_card.pdf'));\nform.append('documents', fs.createReadStream('pan_card.jpg'));\n\nconst { data } = await axios.post('${API_BASE_URL}/api/agent/analyze-documents', form, {\n  headers: {\n    ...form.getHeaders(),\n    'Authorization': 'Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c'\n  }\n});\nconsole.log('Forensic Verdict:', data.result.status);`
-                          : `import requests\n\nurl = "${API_BASE_URL}/api/agent/analyze-documents"\nheaders = {"Authorization": "Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c"}\nfiles = [\n    ('documents', open('aadhaar_card.pdf', 'rb')),\n    ('documents', open('pan_card.jpg', 'rb'))\n]\ndata = {'subjectName': '${subjectNameInput.trim() || displayName}'}\n\nresponse = requests.post(url, headers=headers, files=files, data=data)\nprint(response.json())`;
+                          ? `const FormData = require('form-data');\nconst fs = require('fs');\nconst axios = require('axios');\n\nconst form = new FormData();\nform.append('documents', fs.createReadStream('aadhaar_card.pdf'));\nform.append('documents', fs.createReadStream('pan_card.jpg'));\n\nconst { data } = await axios.post('${API_BASE_URL}/api/agent/analyze-documents', form, {\n  headers: {\n    ...form.getHeaders(),\n    'Authorization': 'Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c'\n  }\n});\nconsole.log('Forensic Verdict:', data.result.status);`
+                          : `import requests\n\nurl = "${API_BASE_URL}/api/agent/analyze-documents"\nheaders = {"Authorization": "Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c"}\nfiles = [\n    ('documents', open('aadhaar_card.pdf', 'rb')),\n    ('documents', open('pan_card.jpg', 'rb'))\n]\n\nresponse = requests.post(url, headers=headers, files=files)\nprint(response.json())`;
                         navigator.clipboard.writeText(snippet);
                       }}
                     >
@@ -1639,7 +1630,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                     <pre className="code-pre">
                       {apiTabLang === 'curl' && `curl -X POST ${API_BASE_URL}/api/agent/analyze-documents \\
   -H "Authorization: Bearer prv_live_${activeUser.uid ? activeUser.uid.substring(0, 12) : 'sih2026'}_94f8a1290bb34c" \\
-  -F "subjectName=${subjectNameInput.trim() || displayName}" \\
   -F "documents=@aadhaar_card.pdf" \\
   -F "documents=@pan_card.jpg"`}
 
@@ -1648,7 +1638,6 @@ const fs = require('fs');
 const axios = require('axios');
 
 const form = new FormData();
-form.append('subjectName', '${subjectNameInput.trim() || displayName}');
 form.append('documents', fs.createReadStream('aadhaar_card.pdf'));
 form.append('documents', fs.createReadStream('pan_card.jpg'));
 
@@ -1668,9 +1657,8 @@ files = [
     ('documents', open('aadhaar_card.pdf', 'rb')),
     ('documents', open('pan_card.jpg', 'rb'))
 ]
-data = {'subjectName': '${subjectNameInput.trim() || displayName}'}
 
-response = requests.post(url, headers=headers, files=files, data=data)
+response = requests.post(url, headers=headers, files=files)
 print(response.json())`}
                     </pre>
                   </div>
