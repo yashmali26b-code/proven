@@ -4,7 +4,7 @@ import logoImg from '../../assets/logo.png';
 import { Menu, X } from 'lucide-react';
 import { NavButton, PrimaryButton } from '../../components/universalbuttonhovers';
 
-export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, onNavigateHome, onNavigateFaq, isTeamPage, isFaqPage }) => {
+export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, onNavigateHome, onNavigateFaq, onNavigateHow, isTeamPage, isFaqPage, isHowPage }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const ctaText = user ? 'Dashboard' : 'Get Started';
@@ -84,38 +84,17 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
           <ul className={`proven-nav-links ${mobileOpen ? 'open' : ''}`}>
             <li>
               <a 
-                href="#how-it-works" 
+                href="/how-it-works" 
                 className="proven-nav-link" 
                 onClick={(e) => {
                   e.preventDefault();
-                  handleNavClick('#how-it-works');
-                }}
-              >
-                Security
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#how-it-works" 
-                className="proven-nav-link" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#how-it-works');
+                  if (onNavigateHow) {
+                    onNavigateHow();
+                    setMobileOpen(false);
+                  }
                 }}
               >
                 How It Works
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#how-it-works" 
-                className="proven-nav-link" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#how-it-works');
-                }}
-              >
-                Pricing
               </a>
             </li>
             <li>

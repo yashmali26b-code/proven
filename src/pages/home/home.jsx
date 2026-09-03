@@ -7,7 +7,7 @@ import ThreeLayersSection from './ThreeLayersSection';
 import CtaBannerSection from './CtaBannerSection';
 import GiantFooterSection from './GiantFooterSection';
 
-export const Home = ({ user, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
+export const Home = ({ user, onNavigateTeam, onNavigateFaq, onNavigateHow, onOpenAuth }) => {
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -65,12 +65,14 @@ export const Home = ({ user, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
         onExploreDemo={() => scrollToSection('#features')}
         onNavigateTeam={onNavigateTeam}
         onNavigateFaq={onNavigateFaq}
+        onNavigateHow={onNavigateHow}
       />
 
       <HeroSection 
         ref={heroRef}
         onExplore={() => scrollToSection('#how-it-works')}
         onNavigateFaq={onNavigateFaq}
+        onNavigateHow={onNavigateHow}
         onStartSecuring={onOpenAuth || (() => scrollToSection('#pricing'))}
         onAboutTeam={onNavigateTeam}
       />
@@ -79,7 +81,7 @@ export const Home = ({ user, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
         <StackingWorkflowSection />
         <ThreeLayersSection />
         <CtaBannerSection onGetStarted={onOpenAuth || (() => scrollToSection('#how-it-works'))} />
-        <GiantFooterSection onNavigateTeam={onNavigateTeam} onNavigateFaq={onNavigateFaq} />
+        <GiantFooterSection onNavigateTeam={onNavigateTeam} onNavigateFaq={onNavigateFaq} onNavigateHow={onNavigateHow} />
       </div>
     </div>
   );
