@@ -23,9 +23,9 @@ const LinkedinIcon = () => (
   </svg>
 );
 
-export const GiantFooterSection = ({ onNavigateTeam, onNavigateHome }) => {
+export const GiantFooterSection = ({ onNavigateTeam, onNavigateHome, onNavigateFaq }) => {
   return (
-    <footer className="proven-giant-footer" id="faq">
+    <footer className="proven-giant-footer" id="footer">
       <div className="proven-giant-footer-inner">
         <h2 className="proven-footer-headline">
           Secure what matters.
@@ -107,6 +107,18 @@ export const GiantFooterSection = ({ onNavigateTeam, onNavigateHome }) => {
                 }}
               >
                 Tech Smashers Team
+              </a>
+              <a 
+                href="/faq" 
+                className="proven-footer-sublink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigateFaq) {
+                    onNavigateFaq();
+                  }
+                }}
+              >
+                FAQ & Knowledge Base
               </a>
             </div>
           </div>

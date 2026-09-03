@@ -1,0 +1,488 @@
+.proven-faq-page-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.proven-faq-grid-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 52px 52px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+  animation: faqGridBlurIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, filter, opacity;
+}
+
+.proven-faq-grid-glow {
+  position: fixed;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 950px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.22) 0%, rgba(29, 78, 216, 0.08) 45%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 2;
+  animation: faqGlowBlurIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.proven-faq-grid-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 35%, transparent 20%, rgba(0, 0, 0, 0.75) 75%, #000000 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.proven-faq-container {
+  position: relative;
+  z-index: 10;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 130px 24px 90px 24px;
+}
+
+.proven-faq-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 42px;
+  animation: faqHeroBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.proven-faq-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 18px 0 16px 0;
+}
+
+.proven-faq-title span:last-child {
+  background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.proven-faq-description {
+  max-width: 640px;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin-bottom: 28px;
+}
+
+.proven-faq-search-box {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 6px 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.proven-faq-search-box:focus-within {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+.proven-faq-search-icon {
+  color: #64748b;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.proven-faq-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-family: inherit;
+  padding: 10px 0;
+}
+
+.proven-faq-search-input::placeholder {
+  color: #64748b;
+}
+
+.proven-faq-search-clear {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.proven-faq-search-clear:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.proven-faq-tabs-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  animation: faqHeroBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.proven-faq-tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+
+.proven-faq-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.proven-faq-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.proven-faq-tab-btn.is-active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #60a5fa;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+}
+
+.proven-faq-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+
+.proven-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.proven-faq-card {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: faqCardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.proven-faq-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.proven-faq-card.is-open {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(15, 23, 42, 0.75);
+  box-shadow: 
+    0 12px 36px rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(37, 99, 235, 0.12);
+}
+
+.proven-faq-question-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.proven-faq-q-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.proven-faq-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.proven-faq-question-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  line-height: 1.4;
+  margin: 0;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.proven-faq-card:hover .proven-faq-question-text {
+  color: #ffffff;
+}
+
+.proven-faq-chevron-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.proven-faq-chevron-wrap.is-expanded {
+  transform: rotate(180deg);
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #60a5fa;
+}
+
+.proven-faq-answer-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.proven-faq-answer-collapse.is-expanded {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.proven-faq-answer-inner {
+  overflow: hidden;
+}
+
+.proven-faq-answer-text {
+  padding: 0 24px 22px 24px;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 16px;
+}
+
+.proven-faq-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+}
+
+.proven-faq-empty-icon {
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.proven-faq-empty-title {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.proven-faq-empty-sub {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.proven-faq-cta-box {
+  position: relative;
+  margin-top: 60px;
+  padding: 44px 32px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(18px);
+}
+
+.proven-faq-cta-glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 450px;
+  height: 250px;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.proven-faq-cta-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.proven-faq-cta-title {
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 12px 0 8px 0;
+}
+
+.proven-faq-cta-sub {
+  max-width: 540px;
+  font-size: 0.92rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.proven-faq-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+@keyframes faqGridBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+@keyframes faqGlowBlurIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes faqHeroBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes faqCardFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 740px) {
+  .proven-faq-container {
+    padding: 100px 16px 60px 16px;
+  }
+
+  .proven-faq-question-btn {
+    padding: 16px 18px;
+  }
+
+  .proven-faq-question-text {
+    font-size: 0.96rem;
+  }
+
+  .proven-faq-answer-text {
+    padding: 0 18px 18px 18px;
+    font-size: 0.88rem;
+  }
+
+  .proven-faq-cta-box {
+    padding: 32px 18px;
+  }
+}

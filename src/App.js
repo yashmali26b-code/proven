@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Home from './pages/home/home';
 import TeamPage from './teampage/TeamPage';
+import FaqPage from './pages/faq/FaqPage';
 import Dashboard from './dashboard/Dashboard';
 import AuthModal from './auth/AuthModal';
 import authService from './services/authService';
@@ -16,11 +17,14 @@ function App() {
     const hash = window.location.hash.toLowerCase();
 
     if (hash) {
-      window.history.replaceState(null, '', path === '/team' || hash === '#team' ? '/team' : (path === '/dashboard' || hash === '#dashboard' ? '/dashboard' : '/'));
+      window.history.replaceState(null, '', path === '/team' || hash === '#team' ? '/team' : (path === '/faq' || hash === '#faq' ? '/faq' : (path === '/dashboard' || hash === '#dashboard' ? '/dashboard' : '/')));
     }
 
     if (path === '/team' || hash === '#team') {
       return 'team';
+    }
+    if (path === '/faq' || hash === '#faq') {
+      return 'faq';
     }
     if (path === '/dashboard' || hash === '#dashboard') {
       if (!authService.isAuthenticated()) {
@@ -38,7 +42,7 @@ function App() {
       return;
     }
     setCurrentView(view);
-    const newPath = view === 'team' ? '/team' : (view === 'dashboard' ? '/dashboard' : '/');
+    const newPath = view === 'team' ? '/team' : (view === 'faq' ? '/faq' : (view === 'dashboard' ? '/dashboard' : '/'));
     if (window.location.pathname !== newPath || window.location.hash) {
       window.history.pushState({ view }, '', newPath);
     }
@@ -64,6 +68,8 @@ function App() {
       const path = window.location.pathname.toLowerCase();
       if (path === '/team') {
         setCurrentView('team');
+      } else if (path === '/faq') {
+        setCurrentView('faq');
       } else if (path === '/dashboard') {
         if (!currentUser && !authService.isAuthenticated()) {
           setCurrentView('home');
@@ -115,9 +121,14 @@ function App() {
           navigateTo('team');
           return;
         }
+        if (href === '#faq' || href === '/faq') {
+          e.preventDefault();
+          navigateTo('faq');
+          return;
+        }
         if (href === '#home' || href === '/') {
           e.preventDefault();
-          if (currentView === 'team') {
+          if (currentView === 'team' || currentView === 'faq') {
             navigateTo('home');
           } else if (lenis) {
             lenis.scrollTo(0, { duration: 1.0 });
@@ -184,12 +195,22 @@ function App() {
         <TeamPage 
           user={currentUser}
           onNavigateHome={() => navigateTo('home')} 
+          onNavigateTeam={() => navigateTo('team')}
+          onNavigateFaq={() => navigateTo('faq')}
+          onOpenAuth={handleOpenAuth}
+        />
+      ) : currentView === 'faq' ? (
+        <FaqPage 
+          user={currentUser}
+          onNavigateHome={() => navigateTo('home')} 
+          onNavigateTeam={() => navigateTo('team')}
           onOpenAuth={handleOpenAuth}
         />
       ) : (
         <Home 
           user={currentUser}
           onNavigateTeam={() => navigateTo('team')} 
+          onNavigateFaq={() => navigateTo('faq')}
           onOpenAuth={handleOpenAuth}
         />
       )}

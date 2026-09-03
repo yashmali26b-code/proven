@@ -4,7 +4,7 @@ import logoImg from '../../assets/logo.png';
 import { Menu, X } from 'lucide-react';
 import { NavButton, PrimaryButton } from '../../components/universalbuttonhovers';
 
-export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, onNavigateHome, isTeamPage }) => {
+export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, onNavigateHome, onNavigateFaq, isTeamPage, isFaqPage }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const ctaText = user ? 'Dashboard' : 'Get Started';
@@ -31,35 +31,36 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
 
   const handleNavClick = (id) => {
     setMobileOpen(false);
-    if (isTeamPage && onNavigateHome) {
+    if ((isTeamPage || isFaqPage) && onNavigateHome) {
       onNavigateHome();
       setTimeout(() => {
-        const target = document.querySelector(id);
-        if (target) {
+        const element = document.querySelector(id);
+        if (element) {
           if (window.lenis) {
-            window.lenis.scrollTo(target, { offset: -40, duration: 1.3 });
+            window.lenis.scrollTo(element, { offset: -20, duration: 1.0 });
           } else {
-            target.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({ behavior: 'smooth' });
           }
         }
-      }, 100);
+      }, 150);
       return;
     }
 
-    const target = document.querySelector(id);
-    if (!target) return;
-    if (window.lenis) {
-      window.lenis.scrollTo(target, { offset: -40, duration: 1.3 });
-    } else {
-      target.scrollIntoView({ behavior: 'smooth' });
+    const element = document.querySelector(id);
+    if (element) {
+      if (window.lenis) {
+        window.lenis.scrollTo(element, { offset: -20, duration: 1.0 });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
-    <>
+    <nav className="proven-navbar-root" aria-label="Main Navigation">
       <div 
-        className={`proven-mobile-backdrop ${mobileOpen ? 'open' : ''}`}
-        onClick={() => setMobileOpen(false)}
+        className={`proven-nav-backdrop-blur ${mobileOpen ? 'mobile-blur' : ''}`} 
+        onClick={() => setMobileOpen(false)} 
       />
 
       <header className={`proven-navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
@@ -68,7 +69,7 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
           className="proven-nav-brand"
           onClick={(e) => {
             e.preventDefault();
-            if (isTeamPage && onNavigateHome) {
+            if ((isTeamPage || isFaqPage) && onNavigateHome) {
               onNavigateHome();
             } else {
               handleNavClick('#home');
@@ -136,11 +137,16 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
             </li>
             <li>
               <a 
-                href="#faq" 
-                className="proven-nav-link" 
+                href="/faq" 
+                className={`proven-nav-link ${isFaqPage ? 'active' : ''}`} 
                 onClick={(e) => {
                   e.preventDefault();
-                  handleNavClick('#faq');
+                  if (onNavigateFaq) {
+                    onNavigateFaq();
+                    setMobileOpen(false);
+                  } else {
+                    handleNavClick('#faq');
+                  }
                 }}
               >
                 FAQ
@@ -179,7 +185,7 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
           </button>
         </div>
       </header>
-    </>
+    </nav>
   );
 };
 

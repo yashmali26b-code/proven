@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import './HeroSection.css';
 import { PrimaryButton, GlassButton } from '../../components/universalbuttonhovers';
 
-export const HeroSection = forwardRef(({ onExplore, onStartSecuring, onAboutTeam }, ref) => {
+export const HeroSection = forwardRef(({ onExplore, onNavigateFaq, onStartSecuring, onAboutTeam }, ref) => {
   return (
     <div className="proven-hero-sticky-container" ref={ref}>
       <div className="proven-hero-bg-wrapper">
@@ -19,11 +19,15 @@ export const HeroSection = forwardRef(({ onExplore, onStartSecuring, onAboutTeam
 
       <main className="proven-hero-content">
         <a 
-          href="#how-it-works" 
+          href="/faq" 
           className="proven-hero-badge-link"
           onClick={(e) => {
             e.preventDefault();
-            onExplore && onExplore();
+            if (onNavigateFaq) {
+              onNavigateFaq();
+            } else if (onExplore) {
+              onExplore();
+            }
           }}
         >
           <span className="proven-badge-tag">NEW</span>

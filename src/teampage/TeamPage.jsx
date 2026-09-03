@@ -10,7 +10,7 @@ const GithubIcon = ({ size = 15 }) => (
   </svg>
 );
 
-export const TeamPage = ({ user, onNavigateHome, onOpenAuth }) => {
+export const TeamPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
   const [copiedEmail, setCopiedEmail] = useState(null);
 
   const handleCopyEmail = (email) => {
@@ -73,6 +73,7 @@ export const TeamPage = ({ user, onNavigateHome, onOpenAuth }) => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
           if (window.lenis) window.lenis.scrollTo(0, { duration: 1.0 });
         }}
+        onNavigateFaq={onNavigateFaq}
         isTeamPage={true}
       />
 
@@ -195,6 +196,7 @@ export const TeamPage = ({ user, onNavigateHome, onOpenAuth }) => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
           if (window.lenis) window.lenis.scrollTo(0, { duration: 1.0 });
         }}
+        onNavigateFaq={onNavigateFaq}
       />
     </div>
   );
