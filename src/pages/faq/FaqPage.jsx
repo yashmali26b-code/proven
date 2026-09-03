@@ -91,7 +91,7 @@ const CATEGORIES = [
   { id: 'security', label: 'Zero-Trust Security', icon: Lock }
 ];
 
-export const FaqPage = ({ user, onNavigateHome, onNavigateTeam, onOpenAuth }) => {
+export const FaqPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, onNavigateHow, onOpenAuth }) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [openItems, setOpenItems] = useState({ 'groq-lpu': true, 'cross-doc-dna': true });
@@ -137,11 +137,18 @@ export const FaqPage = ({ user, onNavigateHome, onNavigateTeam, onOpenAuth }) =>
 
       <main className="proven-faq-container">
         <section className="proven-faq-hero">
-          <div className="proven-hero-badge-link">
+          <a 
+            href="/how-it-works" 
+            className="proven-hero-badge-link"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigateHow) onNavigateHow();
+            }}
+          >
             <span className="proven-badge-tag">NEW</span>
             <span className="proven-badge-text">See How PROVEN AI Works</span>
             <span className="proven-badge-arrow">→</span>
-          </div>
+          </a>
 
           <h1 className="proven-faq-title">
             <span>Frequently Asked Questions &</span>

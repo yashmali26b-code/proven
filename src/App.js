@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Home from './pages/home/home';
 import TeamPage from './teampage/TeamPage';
 import FaqPage from './pages/faq/FaqPage';
+import HowItWorksPage from './pages/howitworks/HowItWorksPage';
 import Dashboard from './dashboard/Dashboard';
 import AuthModal from './auth/AuthModal';
 import authService from './services/authService';
@@ -17,15 +18,12 @@ function App() {
     const hash = window.location.hash.toLowerCase();
 
     if (hash) {
-      window.history.replaceState(null, '', path === '/team' || hash === '#team' ? '/team' : (path === '/faq' || hash === '#faq' ? '/faq' : (path === '/dashboard' || hash === '#dashboard' ? '/dashboard' : '/')));
+      window.history.replaceState(null, '', path === '/team' || hash === '#team' ? '/team' : (path === '/faq' || hash === '#faq' ? '/faq' : (path === '/how-it-works' ? '/how-it-works' : (path === '/dashboard' || hash === '#dashboard' ? '/dashboard' : '/'))));
     }
 
-    if (path === '/team' || hash === '#team') {
-      return 'team';
-    }
-    if (path === '/faq' || hash === '#faq') {
-      return 'faq';
-    }
+    if (path === '/team' || hash === '#team') return 'team';
+    if (path === '/faq' || hash === '#faq') return 'faq';
+    if (path === '/how-it-works') return 'how';
     if (path === '/dashboard' || hash === '#dashboard') {
       if (!authService.isAuthenticated()) {
         window.history.replaceState(null, '', '/');
@@ -42,7 +40,8 @@ function App() {
       return;
     }
     setCurrentView(view);
-    const newPath = view === 'team' ? '/team' : (view === 'faq' ? '/faq' : (view === 'dashboard' ? '/dashboard' : '/'));
+    const pathMap = { team: '/team', faq: '/faq', how: '/how-it-works', dashboard: '/dashboard' };
+    const newPath = pathMap[view] || '/';
     if (window.location.pathname !== newPath || window.location.hash) {
       window.history.pushState({ view }, '', newPath);
     }
@@ -70,6 +69,8 @@ function App() {
         setCurrentView('team');
       } else if (path === '/faq') {
         setCurrentView('faq');
+      } else if (path === '/how-it-works') {
+        setCurrentView('how');
       } else if (path === '/dashboard') {
         if (!currentUser && !authService.isAuthenticated()) {
           setCurrentView('home');
@@ -126,9 +127,14 @@ function App() {
           navigateTo('faq');
           return;
         }
+        if (href === '/how-it-works') {
+          e.preventDefault();
+          navigateTo('how');
+          return;
+        }
         if (href === '#home' || href === '/') {
           e.preventDefault();
-          if (currentView === 'team' || currentView === 'faq') {
+          if (currentView === 'team' || currentView === 'faq' || currentView === 'how') {
             navigateTo('home');
           } else if (lenis) {
             lenis.scrollTo(0, { duration: 1.0 });
@@ -197,6 +203,7 @@ function App() {
           onNavigateHome={() => navigateTo('home')} 
           onNavigateTeam={() => navigateTo('team')}
           onNavigateFaq={() => navigateTo('faq')}
+          onNavigateHow={() => navigateTo('how')}
           onOpenAuth={handleOpenAuth}
         />
       ) : currentView === 'faq' ? (
@@ -204,6 +211,15 @@ function App() {
           user={currentUser}
           onNavigateHome={() => navigateTo('home')} 
           onNavigateTeam={() => navigateTo('team')}
+          onNavigateHow={() => navigateTo('how')}
+          onOpenAuth={handleOpenAuth}
+        />
+      ) : currentView === 'how' ? (
+        <HowItWorksPage 
+          user={currentUser}
+          onNavigateHome={() => navigateTo('home')} 
+          onNavigateTeam={() => navigateTo('team')}
+          onNavigateFaq={() => navigateTo('faq')}
           onOpenAuth={handleOpenAuth}
         />
       ) : (
@@ -211,6 +227,7 @@ function App() {
           user={currentUser}
           onNavigateTeam={() => navigateTo('team')} 
           onNavigateFaq={() => navigateTo('faq')}
+          onNavigateHow={() => navigateTo('how')}
           onOpenAuth={handleOpenAuth}
         />
       )}
