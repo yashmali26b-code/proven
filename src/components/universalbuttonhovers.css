@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Luxury Silky Butter 3D Pop-Up Physics (Fixed In-Place Elevation)
+   ========================================================================== */
+
+.proven-universal-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  outline: none;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Luxurious Slow Deceleration Butter Curve */
+  transition: 
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease;
+  will-change: transform, box-shadow;
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   1. BUTTERY 3D POP-UP IN SAME POSITION (NO vertical shifting up)
+   -------------------------------------------------------------------------- */
+.proven-universal-btn:hover {
+  /* Pops up towards the viewer right in place */
+  transform: scale(1.045);
+}
+
+/* --------------------------------------------------------------------------
+   2. TACTILE PRESS IN SAME POSITION (Sinks into the screen while holding)
+   -------------------------------------------------------------------------- */
+.proven-universal-btn:active,
+.proven-universal-btn.is-pressed {
+  /* Pushes deep into the surface in the exact same spot */
+  transform: scale(0.96) !important;
+  transition: 
+    transform 0.14s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.14s ease !important;
+}
+
+/* --------------------------------------------------------------------------
+   Button Variants with In-Place 3D Shadow Depth
+   -------------------------------------------------------------------------- */
+
+/* Primary Variant (Solid White) */
+.proven-universal-btn.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  padding: 13px 28px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.proven-universal-btn.btn-primary:hover {
+  background-color: #ffffff;
+  /* Expands a 3D volumetric halo and shadow in-place */
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(59, 130, 246, 0.4),
+    0 0 14px rgba(255, 255, 255, 0.5);
+}
+
+.proven-universal-btn.btn-primary:active,
+.proven-universal-btn.btn-primary.is-pressed {
+  background-color: #f1f5f9;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Glass Variant (Translucent Frosted) */
+.proven-universal-btn.btn-glass {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 13px 26px;
+  font-size: 0.94rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.proven-universal-btn.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.8),
+    0 0 24px rgba(37, 99, 235, 0.35);
+}
+
+.proven-universal-btn.btn-glass:active,
+.proven-universal-btn.btn-glass.is-pressed {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar Compact Variant */
+.proven-universal-btn.btn-nav {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.proven-universal-btn.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.045);
+  box-shadow: 
+    0 6px 24px rgba(0, 0, 0, 0.75),
+    0 0 16px rgba(59, 130, 246, 0.35);
+}
+
+.proven-universal-btn.btn-nav:active,
+.proven-universal-btn.btn-nav.is-pressed {
+  transform: scale(0.96) !important;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Electric Blue Glow Variant */
+.proven-universal-btn.btn-blue {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border-color: rgba(96, 165, 250, 0.5);
+  padding: 13px 28px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+}
+
+.proven-universal-btn.btn-blue:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-color: rgba(147, 197, 253, 0.7);
+  box-shadow: 
+    0 8px 32px rgba(37, 99, 235, 0.6),
+    0 0 32px rgba(59, 130, 246, 0.5);
+}
+
+.proven-universal-btn.btn-blue:active,
+.proven-universal-btn.btn-blue.is-pressed {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth Ambient Sheen Sweep */
+.proven-btn-sheen {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  transform: skewX(-22deg);
+  pointer-events: none;
+  transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.proven-universal-btn:hover .proven-btn-sheen {
+  left: 150%;
+}
+
+/* Precise Icon & Typography Alignment */
+.proven-btn-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.proven-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.proven-btn-icon svg {
+  display: block;
+}
+
+.proven-universal-btn:hover .proven-btn-icon {
+  transform: translateX(2px);
+}
+

@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Infrastructure & Security Stack Section - 120fps Performance
+   ========================================================================== */
+
+.proven-infra-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #000000;
+  padding: 60px 24px 100px 24px;
+  contain: layout paint;
+}
+
+.proven-infra-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.proven-section-badge-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.proven-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+.proven-badge-text-tag {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.proven-infra-title {
+  text-align: center;
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(2.4rem, 5.4vw, 4rem);
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  margin-bottom: 50px;
+}
+
+.proven-infra-title span {
+  display: block;
+  color: #94a3b8;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* 4 Grid Cards - Blackish Tone */
+.proven-infra-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.proven-infra-card {
+  background: #05070c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.85);
+  contain: content;
+  content-visibility: auto;
+  contain-intrinsic-size: 260px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  cursor: default;
+}
+
+.proven-infra-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.proven-infra-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.proven-infra-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Card Info */
+.proven-infra-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proven-infra-role {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #60a5fa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Inter', sans-serif;
+}
+
+.proven-infra-name {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.proven-infra-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.94rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .proven-infra-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .proven-infra-section {
+    padding: 40px 16px 50px 16px;
+  }
+  .proven-infra-title {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  .proven-infra-card {
+    padding: 24px 20px;
+  }
+}

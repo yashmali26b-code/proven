@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Tech Smashers Team Page - Crisp Box Grid & Neat Structured Obsidian Cards
+   ========================================================================== */
+
+.proven-teampage-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   1. Futuristic Box Lines Background (No Wallpaper)
+   ========================================================================== */
+.proven-team-grid-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+  animation: teamGridBlurIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, filter, opacity;
+}
+
+.proven-team-grid-glow {
+  position: fixed;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 950px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.22) 0%, rgba(29, 78, 216, 0.08) 45%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 2;
+  animation: teamGlowBlurIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.proven-team-grid-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 35%, transparent 20%, rgba(0, 0, 0, 0.75) 75%, #000000 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   2. Main Container
+   ========================================================================== */
+.proven-team-neat-container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 130px 24px 90px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Hero Header */
+.proven-team-neat-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.proven-team-neat-hero .proven-hero-badge-link {
+  margin-bottom: 24px;
+  animation: heroPillBlurIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  will-change: transform, filter, opacity;
+}
+
+.proven-team-neat-hero .proven-hero-title {
+  margin-bottom: 20px;
+  animation: heroTitleBlurIn 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+  will-change: transform, filter, opacity;
+}
+
+.proven-team-neat-hero .proven-hero-description {
+  margin-bottom: 0;
+  animation: heroDescBlurIn 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+  will-change: transform, filter, opacity;
+}
+
+/* ==========================================================================
+   3. Neat Structured Box Component
+   ========================================================================== */
+.proven-neat-box {
+  background: #05070c;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter, opacity;
+}
+
+.proven-neat-box:hover {
+  border-color: rgba(96, 165, 250, 0.45);
+  box-shadow: 
+    0 22px 50px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(37, 99, 235, 0.18);
+  transform: translateY(-3px);
+}
+
+/* Avatar Monogram Box */
+.proven-neat-avatar-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Newsreader', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.proven-neat-avatar-box.leader-avatar {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   4. Team Leader Neat Box
+   ========================================================================== */
+.proven-neat-leader-section {
+  width: 100%;
+  max-width: 780px;
+  margin-bottom: 28px;
+}
+
+.proven-neat-leader-box {
+  padding: 32px 30px;
+  text-align: left;
+  animation: neatBoxBlurIn 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both;
+}
+
+.proven-neat-leader-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.proven-neat-leader-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.proven-neat-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 8px;
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 9999px;
+  width: fit-content;
+  margin-bottom: 5px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 14px rgba(37, 99, 235, 0.15);
+}
+
+.proven-role-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  box-shadow: 0 0 8px #3b82f6;
+  flex-shrink: 0;
+}
+
+.proven-role-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'Inter', sans-serif;
+  line-height: 1;
+}
+
+.proven-neat-leader-name {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.proven-neat-leader-bio {
+  font-size: 0.94rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.proven-neat-leader-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 18px;
+}
+
+.proven-neat-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.proven-neat-action-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: #ffffff;
+}
+
+.proven-action-arrow {
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+.proven-neat-action-btn:hover .proven-action-arrow {
+  transform: translate(2px, -2px);
+  color: #60a5fa;
+}
+
+.proven-neat-email-btn-group {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+}
+
+.proven-neat-email-btn-group:hover {
+  border-color: rgba(96, 165, 250, 0.5);
+}
+
+.proven-neat-email-main-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px 7px 14px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.84rem;
+}
+
+.proven-neat-email-main-btn:hover {
+  color: #ffffff;
+}
+
+.proven-neat-copy-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 7px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.proven-neat-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.copied-icon {
+  color: #10b981;
+}
+
+/* ==========================================================================
+   5. Teammates 2x2 Grid
+   ========================================================================== */
+.proven-neat-teammates-section {
+  width: 100%;
+  max-width: 780px;
+  margin-bottom: 40px;
+}
+
+.proven-neat-teammates-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  width: 100%;
+}
+
+.proven-neat-member-box {
+  padding: 20px 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  animation: neatBoxBlurIn 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
+}
+
+.proven-neat-member-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.proven-neat-member-meta {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.proven-neat-member-name {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: 1.28rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proven-neat-member-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+}
+
+.proven-neat-email-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 5px 8px 5px 10px;
+  transition: border-color 0.2s ease;
+}
+
+.proven-neat-email-row:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+}
+
+.proven-neat-member-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.proven-neat-member-email-link:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   6. Smooth Blur-to-Normal Entrance Animations
+   ========================================================================== */
+@keyframes teamGridBlurIn {
+  0% {
+    opacity: 0.2;
+    filter: blur(20px);
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+@keyframes teamGlowBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(100px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(80px);
+  }
+}
+
+@keyframes neatBoxBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(22px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   7. Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 740px) {
+  .proven-team-neat-container {
+    padding: 110px 16px 60px 16px;
+  }
+
+  .proven-neat-teammates-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .proven-neat-leader-box {
+    padding: 24px 18px;
+  }
+
+  .proven-neat-leader-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .proven-neat-action-btn,
+  .proven-neat-email-btn-group {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .proven-neat-email-main-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Royal Golden King UI for Team Leader
+   ========================================================================== */
+
+.proven-leader-royal-gold {
+  position: relative;
+  background: radial-gradient(ellipse at top left, rgba(234, 179, 8, 0.12) 0%, rgba(180, 83, 9, 0.05) 50%, #05070c 85%) !important;
+  border: 1px solid rgba(234, 179, 8, 0.38) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 30px rgba(234, 179, 8, 0.12) !important;
+}
+
+.proven-leader-royal-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.6), transparent);
+  pointer-events: none;
+}
+
+.proven-leader-royal-gold:hover {
+  border-color: rgba(250, 204, 21, 0.65) !important;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.95), 0 0 40px rgba(234, 179, 8, 0.25) !important;
+}
+
+.royal-gold-avatar {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.35) 0%, rgba(161, 98, 7, 0.5) 100%) !important;
+  border: 1px solid rgba(250, 204, 21, 0.65) !important;
+  color: #fef08a !important;
+  box-shadow: 0 0 18px rgba(234, 179, 8, 0.3) !important;
+}
+
+.royal-gold-pill {
+  background: rgba(234, 179, 8, 0.14) !important;
+  border: 1px solid rgba(250, 204, 21, 0.45) !important;
+  box-shadow: 0 0 16px rgba(234, 179, 8, 0.2) !important;
+  gap: 5px !important;
+}
+
+.royal-crown-icon {
+  color: #facc15;
+  filter: drop-shadow(0 0 5px rgba(234, 179, 8, 0.8));
+  flex-shrink: 0;
+}
+
+.royal-gold-pill .proven-role-text {
+  color: #fef08a !important;
+  letter-spacing: 0.1em;
+}
+
+.royal-gold-name {
+  background: linear-gradient(135deg, #ffffff 40%, #fde047 80%, #eab308 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(234, 179, 8, 0.2));
+}
+
+.proven-leader-royal-gold .proven-neat-action-btn:hover {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(250, 204, 21, 0.55);
+}
+
+.proven-leader-royal-gold .proven-neat-action-btn:hover .proven-action-arrow {
+  color: #facc15;
+}
+
+.proven-leader-royal-gold .proven-neat-email-btn-group:hover {
+  border-color: rgba(250, 204, 21, 0.55);
+}

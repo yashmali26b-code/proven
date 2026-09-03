@@ -1,0 +1,113 @@
+/* ==========================================================================
+   CTA Banner Section - Claude Typography & High Performance
+   ========================================================================== */
+
+.proven-cta-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #000000;
+  padding: 60px 24px 100px 24px;
+}
+
+.proven-cta-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.proven-cta-card {
+  position: relative;
+  border-radius: 28px;
+  background-color: #0b0e17;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 80px 64px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 400px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Glowing Blue Fluted Lens Background on Right */
+.proven-cta-lens-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65%;
+  height: 100%;
+  background-image: url('../../assets/framer/cta_lens_bg.png');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(90deg, transparent 0%, #000 40%);
+  mask: linear-gradient(90deg, transparent 0%, #000 40%);
+}
+
+.proven-cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.proven-cta-title {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.proven-cta-title span {
+  display: block;
+  color: #94a3b8;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.proven-cta-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.proven-cta-actions {
+  margin-top: 12px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .proven-cta-card {
+    padding: 48px 32px;
+    min-height: 340px;
+  }
+  .proven-cta-lens-bg {
+    width: 100%;
+    opacity: 0.45;
+  }
+}
+
+@media (max-width: 640px) {
+  .proven-cta-section {
+    padding: 40px 16px 80px 16px;
+  }
+  .proven-cta-card {
+    padding: 36px 20px;
+    border-radius: 20px;
+  }
+  .proven-cta-title {
+    font-size: 2.2rem;
+  }
+}

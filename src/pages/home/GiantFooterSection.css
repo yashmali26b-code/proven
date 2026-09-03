@@ -1,0 +1,209 @@
+/* ==========================================================================
+   Giant Brand Typography Footer - Claude Typography & High Performance
+   ========================================================================== */
+
+.proven-giant-footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #000000;
+  padding: 100px 24px 0 24px;
+  overflow: hidden;
+}
+
+.proven-giant-footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Top Headline - Claude Serif */
+.proven-footer-headline {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(2.8rem, 6.2vw, 5rem);
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 64px;
+}
+
+.proven-footer-headline span {
+  display: block;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Middle Info Columns */
+.proven-footer-mid-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 40px;
+}
+
+.proven-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proven-footer-col-title {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-transform: capitalize;
+  font-family: 'Inter', sans-serif;
+}
+
+.proven-footer-col-desc {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Social Icon Buttons */
+.proven-social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proven-social-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
+  transform: scale(1);
+}
+
+.proven-social-btn:hover {
+  transform: scale(1.1);
+  background-color: #60a5fa;
+  color: #ffffff;
+}
+
+.proven-social-btn:active {
+  transform: scale(0.95);
+}
+
+/* Navigation Links Row */
+.proven-footer-nav-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding-bottom: 80px;
+}
+
+.proven-footer-subcol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proven-footer-subcol-title {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: capitalize;
+  font-family: 'Inter', sans-serif;
+}
+
+.proven-footer-sublinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.proven-footer-sublink {
+  color: #ffffff;
+  font-size: 0.92rem;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.proven-footer-sublink:hover {
+  color: #60a5fa;
+}
+
+.proven-footer-copyright {
+  color: #64748b;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  align-self: flex-end;
+}
+
+/* Giant Watermark Typography at Bottom - Normal Bold Sans-Serif */
+.proven-giant-watermark-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  margin-top: -20px;
+  padding-bottom: 0;
+}
+
+.proven-giant-watermark-text {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: clamp(6.5rem, 19vw, 21rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.14) 45%,
+    rgba(255, 255, 255, 0.02) 80%,
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .proven-footer-mid-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .proven-footer-nav-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .proven-footer-copyright {
+    grid-column: span 2;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .proven-giant-footer {
+    padding: 70px 16px 0 16px;
+  }
+  .proven-footer-headline {
+    font-size: 2.4rem;
+    margin-bottom: 40px;
+  }
+  .proven-footer-nav-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .proven-footer-copyright {
+    grid-column: span 1;
+  }
+}

@@ -1,0 +1,167 @@
+/* ==========================================================================
+   Stacking Workflow Cards Section - Ultra High 120fps Performance
+   ========================================================================== */
+
+.proven-stacking-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #000000;
+  padding: 80px 24px 100px 24px;
+  contain: layout paint;
+}
+
+.proven-stacking-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.proven-stacking-title {
+  text-align: center;
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(2.4rem, 5.4vw, 4rem);
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  margin-bottom: 60px;
+}
+
+.proven-stacking-title span {
+  display: block;
+  color: #94a3b8;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Cards Container - Smooth Flowing Panels */
+.proven-stacking-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+}
+
+/* Individual Workflow Card - 100% Lag-Free GPU Acceleration */
+.proven-workflow-card {
+  background: #05070c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 36px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 48px;
+  align-items: center;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.85);
+  contain: content;
+  content-visibility: auto;
+  contain-intrinsic-size: 450px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  cursor: default;
+}
+
+/* Visual Image Left */
+.proven-workflow-img-box {
+  width: 100%;
+  height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #020306;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.proven-workflow-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+/* Info Right */
+.proven-workflow-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding-right: 12px;
+}
+
+.proven-workflow-title {
+  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+}
+
+.proven-workflow-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.02rem;
+  color: #94a3b8;
+  line-height: 1.65;
+}
+
+.proven-workflow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.proven-workflow-link:hover {
+  color: #60a5fa;
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .proven-workflow-card {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px;
+  }
+  .proven-workflow-img-box {
+    height: 260px;
+  }
+  .proven-workflow-info {
+    padding-right: 0;
+  }
+  .proven-workflow-title {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .proven-stacking-section {
+    padding: 50px 16px 70px 16px;
+  }
+  .proven-stacking-title {
+    font-size: 2.3rem;
+    margin-bottom: 36px;
+  }
+  .proven-workflow-card {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .proven-workflow-img-box {
+    height: 220px;
+  }
+}

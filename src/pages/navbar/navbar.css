@@ -1,0 +1,307 @@
+/* ==========================================================================
+   PROVEN Navbar - Full-Width Glassy Header (Desktop & Mobile Optimized)
+   ========================================================================== */
+
+.proven-navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 44px;
+  background: transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none !important;
+  animation: navbarBlurIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  will-change: transform, filter, opacity;
+}
+
+@keyframes navbarBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+.proven-navbar-wrapper.scrolled {
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  padding: 16px 44px;
+}
+
+/* Brand / Logo (Left) */
+.proven-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1002;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1);
+}
+
+.proven-nav-brand:hover {
+  transform: scale(1.04);
+}
+
+.proven-nav-brand:active {
+  transform: scale(0.97) !important;
+  transition: transform 0.12s ease !important;
+}
+
+.proven-nav-logo {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.proven-nav-brand:hover .proven-nav-logo {
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6));
+}
+
+.proven-nav-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Center Navigation Links (Desktop) */
+.proven-nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.proven-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Buttery Pop-Up for Navbar Links */
+.proven-nav-link {
+  display: inline-block;
+  color: #94a3b8;
+  font-size: 0.94rem;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  padding: 6px 4px;
+  transition: 
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s ease,
+    text-shadow 0.3s ease;
+  transform: scale(1);
+  will-change: transform, color;
+}
+
+.proven-nav-link:hover {
+  color: #ffffff;
+  /* Gentle in-place buttery pop-up */
+  transform: scale(1.08);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
+}
+
+.proven-nav-link:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.12s ease !important;
+}
+
+/* Hidden on desktop */
+.proven-mobile-cta-item {
+  display: none !important;
+}
+
+/* Right Actions */
+.proven-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1002;
+}
+
+/* Mobile Hamburger / Close Button */
+.proven-mobile-toggle {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 7px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.proven-mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.proven-mobile-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Mobile Backdrop */
+.proven-mobile-backdrop {
+  display: none;
+}
+
+/* ==========================================================================
+   Mobile & Tablet Responsive Rules (< 868px)
+   ========================================================================== */
+
+@media (max-width: 868px) {
+  .proven-navbar-wrapper {
+    padding: 16px 20px;
+  }
+
+  .proven-navbar-wrapper.scrolled {
+    padding: 14px 20px;
+  }
+
+  .proven-nav-logo {
+    height: 24px;
+  }
+
+  .proven-nav-title {
+    font-size: 1.05rem;
+  }
+
+  .proven-mobile-toggle {
+    display: flex;
+  }
+
+  .proven-nav-center {
+    position: static;
+    transform: none;
+  }
+
+  /* Floating Modern Frosted Mobile Menu Drawer */
+  .proven-nav-links {
+    position: fixed;
+    top: 68px;
+    left: 14px;
+    right: 14px;
+    background: rgba(8, 11, 20, 0.94);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 20px;
+    flex-direction: column;
+    padding: 14px 12px 14px 12px;
+    gap: 2px;
+    box-shadow: 
+      0 24px 60px rgba(0, 0, 0, 0.9),
+      0 0 30px rgba(37, 99, 235, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.98);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1001;
+  }
+
+  .proven-nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .proven-nav-links li {
+    width: 100%;
+    list-style: none;
+  }
+
+  /* Clean Typography Links (No Box Outlines) */
+  .proven-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .proven-nav-link:active,
+  .proven-nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #ffffff;
+    transform: none;
+  }
+
+  .proven-nav-link.active {
+    background: rgba(37, 99, 235, 0.12);
+    color: #60a5fa;
+  }
+
+  /* Mobile CTA at bottom */
+  .proven-mobile-cta-item {
+    display: block !important;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .proven-mobile-menu-cta {
+    width: 100% !important;
+    padding: 12px 18px !important;
+    border-radius: 12px !important;
+    font-size: 0.94rem !important;
+    font-weight: 600 !important;
+  }
+
+  .proven-mobile-backdrop.open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 999;
+  }
+}
+
+/* Extra Small Phones (< 480px) */
+@media (max-width: 480px) {
+  .proven-navbar-wrapper {
+    padding: 14px 16px;
+  }
+
+  .proven-nav-actions .proven-universal-btn {
+    display: none;
+  }
+}
