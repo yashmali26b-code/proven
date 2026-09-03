@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Infrastructure & Security Stack Section - 120fps Performance
-   ========================================================================== */
+
 
 .proven-infra-section {
   position: relative;
@@ -60,7 +58,7 @@
   font-weight: 400;
 }
 
-/* 4 Grid Cards - Blackish Tone */
+
 .proven-infra-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -112,7 +110,7 @@
   user-select: none;
 }
 
-/* Card Info */
+
 .proven-infra-info {
   display: flex;
   flex-direction: column;
@@ -144,7 +142,7 @@
   line-height: 1.6;
 }
 
-/* Responsive */
+
 @media (max-width: 860px) {
   .proven-infra-cards-grid {
     grid-template-columns: 1fr;

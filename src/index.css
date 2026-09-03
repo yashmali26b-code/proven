@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Global Reset & Claude Typography Engine
-   ========================================================================== */
+
 
 * {
   box-sizing: border-box;
@@ -20,13 +18,13 @@ html, body, #root {
   text-rendering: optimizeLegibility;
 }
 
-/* Claude Serif Heading Class */
+
 h1, h2, h3, .claude-serif {
   font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
   font-feature-settings: "pnum" 1, "onum" 1;
 }
 
-/* Custom Minimalist Scrollbar */
+
 ::-webkit-scrollbar {
   width: 6px;
 }

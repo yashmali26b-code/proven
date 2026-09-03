@@ -1,6 +1,4 @@
-/* ==========================================================================
-   PROVEN Navbar - Full-Width Glassy Header (Desktop & Mobile Optimized)
-   ========================================================================== */
+
 
 .proven-navbar-wrapper {
   position: fixed;
@@ -41,7 +39,7 @@
   padding: 16px 44px;
 }
 
-/* Brand / Logo (Left) */
+
 .proven-nav-brand {
   display: flex;
   align-items: center;
@@ -85,7 +83,7 @@
   text-transform: uppercase;
 }
 
-/* Center Navigation Links (Desktop) */
+
 .proven-nav-center {
   position: absolute;
   left: 50%;
@@ -103,7 +101,7 @@
   padding: 0;
 }
 
-/* Buttery Pop-Up for Navbar Links */
+
 .proven-nav-link {
   display: inline-block;
   color: #94a3b8;
@@ -122,7 +120,7 @@
 
 .proven-nav-link:hover {
   color: #ffffff;
-  /* Gentle in-place buttery pop-up */
+  
   transform: scale(1.08);
   text-shadow: 0 0 14px rgba(255, 255, 255, 0.45);
 }
@@ -132,12 +130,12 @@
   transition: transform 0.12s ease !important;
 }
 
-/* Hidden on desktop */
+
 .proven-mobile-cta-item {
   display: none !important;
 }
 
-/* Right Actions */
+
 .proven-nav-actions {
   display: flex;
   align-items: center;
@@ -145,7 +143,7 @@
   z-index: 1002;
 }
 
-/* Mobile Hamburger / Close Button */
+
 .proven-mobile-toggle {
   display: none;
   background: rgba(255, 255, 255, 0.05);
@@ -170,14 +168,12 @@
   transform: scale(0.95);
 }
 
-/* Mobile Backdrop */
+
 .proven-mobile-backdrop {
   display: none;
 }
 
-/* ==========================================================================
-   Mobile & Tablet Responsive Rules (< 868px)
-   ========================================================================== */
+
 
 @media (max-width: 868px) {
   .proven-navbar-wrapper {
@@ -205,7 +201,7 @@
     transform: none;
   }
 
-  /* Floating Modern Frosted Mobile Menu Drawer */
+  
   .proven-nav-links {
     position: fixed;
     top: 68px;
@@ -240,7 +236,7 @@
     list-style: none;
   }
 
-  /* Clean Typography Links (No Box Outlines) */
+  
   .proven-nav-link {
     display: flex;
     align-items: center;
@@ -269,7 +265,7 @@
     color: #60a5fa;
   }
 
-  /* Mobile CTA at bottom */
+  
   .proven-mobile-cta-item {
     display: block !important;
     width: 100%;
@@ -295,7 +291,7 @@
   }
 }
 
-/* Extra Small Phones (< 480px) */
+
 @media (max-width: 480px) {
   .proven-navbar-wrapper {
     padding: 14px 16px;

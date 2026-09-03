@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Master Homepage CSS - Clean Composable Architecture
-   ========================================================================== */
+
 
 .proven-home-container {
   position: relative;
@@ -12,7 +10,7 @@
   flex-direction: column;
 }
 
-/* Master Sheet Overlay (Glides smoothly over the sticky hero) */
+
 .proven-body-content-overlay {
   position: relative;
   z-index: 20;

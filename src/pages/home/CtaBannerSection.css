@@ -1,6 +1,4 @@
-/* ==========================================================================
-   CTA Banner Section - Claude Typography & High Performance
-   ========================================================================== */
+
 
 .proven-cta-section {
   position: relative;
@@ -33,7 +31,7 @@
   -webkit-backface-visibility: hidden;
 }
 
-/* Glowing Blue Fluted Lens Background on Right */
+
 .proven-cta-lens-bg {
   position: absolute;
   top: 0;
@@ -87,7 +85,7 @@
   margin-top: 12px;
 }
 
-/* Responsive */
+
 @media (max-width: 800px) {
   .proven-cta-card {
     padding: 48px 32px;

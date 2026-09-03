@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Hero Section - Claude Typography & GPU Accelerated Shader
-   ========================================================================== */
+
 
 .proven-hero-sticky-container {
   position: sticky;
@@ -22,7 +20,7 @@
   -webkit-backface-visibility: hidden;
 }
 
-/* Master Background Viewport */
+
 .proven-hero-bg-wrapper {
   position: absolute;
   inset: 0;
@@ -42,7 +40,7 @@
   background-color: #000000;
 }
 
-/* Desktop Luminance Masked Viewport */
+
 .proven-hero-cloud-masked-viewport {
   position: absolute;
   inset: 0;
@@ -62,7 +60,7 @@
   overflow: hidden;
 }
 
-/* Animated Blue Fluted Lens Shader Asset */
+
 .proven-hero-lens-layer {
   position: absolute;
   inset: -10%;
@@ -77,7 +75,7 @@
   will-change: transform;
 }
 
-/* Moving Black Shadow Waves */
+
 .proven-hero-mask-moving-shadow {
   position: absolute;
   inset: -35%;
@@ -93,7 +91,7 @@
   will-change: transform;
 }
 
-/* Extra Electric Blue Luminescence */
+
 .proven-hero-lens-glow {
   position: absolute;
   inset: 0;
@@ -104,7 +102,7 @@
   z-index: 4;
 }
 
-/* Center Contrast Vignette */
+
 .proven-hero-vignette {
   position: absolute;
   inset: 0;
@@ -126,7 +124,7 @@
   z-index: 5;
 }
 
-/* Hero Content */
+
 .proven-hero-content {
   position: relative;
   z-index: 10;
@@ -141,7 +139,7 @@
   width: 100%;
 }
 
-/* Top Announcement Pill (In-Place Pop-Up) */
+
 .proven-hero-badge-link {
   display: inline-flex;
   align-items: center;
@@ -209,7 +207,7 @@
   transform: translateX(4px);
 }
 
-/* Main Hero Title - Claude Serif */
+
 .proven-hero-title {
   font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
   font-size: clamp(2.8rem, 7.2vw, 4.8rem);
@@ -229,7 +227,7 @@
   display: block;
 }
 
-/* Subtitle */
+
 .proven-hero-description {
   font-family: 'Inter', sans-serif;
   font-size: clamp(0.95rem, 2.2vw, 1.12rem);
@@ -245,7 +243,7 @@
   animation: heroDescBlurIn 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
 }
 
-/* Hero Action Buttons */
+
 .proven-hero-actions {
   display: flex;
   align-items: center;
@@ -256,9 +254,7 @@
   animation: heroActionsBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 }
 
-/* ==========================================================================
-   Smooth Cinematic Blur-to-Normal Entrance Animations
-   ========================================================================== */
+
 @keyframes heroBgBlurIn {
   0% {
     opacity: 0.15;
@@ -324,7 +320,7 @@
   }
 }
 
-/* Keyframes */
+
 @keyframes lensShaderFlow {
   0% { transform: scale(1) translate3d(0, 0, 0); }
   50% { transform: scale(1.03) translate3d(-2%, 2%, 0); }
@@ -337,7 +333,7 @@
   100% { transform: translate3d(-4%, 8%, 0) rotate(-1deg); }
 }
 
-/* Tablet & Mobile (< 868px) Lightweight 120fps Scroll Optimizations */
+
 @media (max-width: 868px) {
   .proven-hero-sticky-container {
     position: relative !important;

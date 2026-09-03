@@ -1,9 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './universalbuttonhovers.css';
 
-/**
- * Universal Button Hook for adding tactile in-place 3D pop-up physics
- */
 export const useTactileButton = () => {
   const [isPressed, setIsPressed] = useState(false);
   const ref = useRef(null);
@@ -29,14 +26,9 @@ export const useTactileButton = () => {
   };
 };
 
-/**
- * Universal Button Component
- * - Hover: Smoothly pops up in 3D right in the SAME position (scale + shadow bloom)
- * - Press (Held): Compresses down in the same position as long as held
- */
 export const UniversalButton = ({
   children,
-  variant = 'primary', // 'primary' | 'glass' | 'nav' | 'blue'
+  variant = 'primary',
   className = '',
   onClick,
   icon = null,
@@ -66,7 +58,6 @@ export const UniversalButton = ({
   );
 };
 
-// Convenience Shorthands
 export const PrimaryButton = (props) => <UniversalButton variant="primary" {...props} />;
 export const GlassButton = (props) => <UniversalButton variant="glass" {...props} />;
 export const NavButton = (props) => <UniversalButton variant="nav" {...props} />;

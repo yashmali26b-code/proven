@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Tech Smashers Team Page - Crisp Box Grid & Neat Structured Obsidian Cards
-   ========================================================================== */
+
 
 .proven-teampage-wrapper {
   position: relative;
@@ -12,9 +10,7 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ==========================================================================
-   1. Futuristic Box Lines Background (No Wallpaper)
-   ========================================================================== */
+
 .proven-team-grid-bg {
   position: fixed;
   inset: 0;
@@ -54,9 +50,7 @@
   z-index: 2;
 }
 
-/* ==========================================================================
-   2. Main Container
-   ========================================================================== */
+
 .proven-team-neat-container {
   position: relative;
   z-index: 10;
@@ -69,7 +63,7 @@
   text-align: center;
 }
 
-/* Hero Header */
+
 .proven-team-neat-hero {
   display: flex;
   flex-direction: column;
@@ -95,9 +89,7 @@
   will-change: transform, filter, opacity;
 }
 
-/* ==========================================================================
-   3. Neat Structured Box Component
-   ========================================================================== */
+
 .proven-neat-box {
   background: #05070c;
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -118,7 +110,7 @@
   transform: translateY(-3px);
 }
 
-/* Avatar Monogram Box */
+
 .proven-neat-avatar-box {
   width: 44px;
   height: 44px;
@@ -144,9 +136,7 @@
   font-size: 1.2rem;
 }
 
-/* ==========================================================================
-   4. Team Leader Neat Box
-   ========================================================================== */
+
 .proven-neat-leader-section {
   width: 100%;
   max-width: 780px;
@@ -312,9 +302,7 @@
   color: #10b981;
 }
 
-/* ==========================================================================
-   5. Teammates 2x2 Grid
-   ========================================================================== */
+
 .proven-neat-teammates-section {
   width: 100%;
   max-width: 780px;
@@ -400,9 +388,7 @@
   color: #ffffff;
 }
 
-/* ==========================================================================
-   6. Smooth Blur-to-Normal Entrance Animations
-   ========================================================================== */
+
 @keyframes teamGridBlurIn {
   0% {
     opacity: 0.2;
@@ -440,9 +426,7 @@
   }
 }
 
-/* ==========================================================================
-   7. Responsive Breakpoints
-   ========================================================================== */
+
 @media (max-width: 740px) {
   .proven-team-neat-container {
     padding: 110px 16px 60px 16px;
@@ -474,9 +458,7 @@
   }
 }
 
-/* ==========================================================================
-   Royal Golden King UI for Team Leader
-   ========================================================================== */
+
 
 .proven-leader-royal-gold {
   position: relative;

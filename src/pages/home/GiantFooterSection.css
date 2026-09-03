@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Giant Brand Typography Footer - Claude Typography & High Performance
-   ========================================================================== */
+
 
 .proven-giant-footer {
   position: relative;
@@ -17,7 +15,7 @@
   width: 100%;
 }
 
-/* Top Headline - Claude Serif */
+
 .proven-footer-headline {
   font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
   font-size: clamp(2.8rem, 6.2vw, 5rem);
@@ -34,7 +32,7 @@
   font-style: italic;
 }
 
-/* Middle Info Columns */
+
 .proven-footer-mid-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -66,7 +64,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Social Icon Buttons */
+
 .proven-social-links {
   display: flex;
   align-items: center;
@@ -97,7 +95,7 @@
   transform: scale(0.95);
 }
 
-/* Navigation Links Row */
+
 .proven-footer-nav-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -144,7 +142,7 @@
   align-self: flex-end;
 }
 
-/* Giant Watermark Typography at Bottom - Normal Bold Sans-Serif */
+
 .proven-giant-watermark-wrap {
   width: 100%;
   display: flex;
@@ -176,7 +174,7 @@
   padding: 0;
 }
 
-/* Responsive */
+
 @media (max-width: 800px) {
   .proven-footer-mid-grid {
     grid-template-columns: 1fr;

@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Luxury Silky Butter 3D Pop-Up Physics (Fixed In-Place Elevation)
-   ========================================================================== */
-
 .proven-universal-btn {
   position: relative;
   display: inline-flex;
@@ -19,8 +15,6 @@
   overflow: hidden;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
-
-  /* Luxurious Slow Deceleration Butter Curve */
   transition: 
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -31,31 +25,18 @@
   transform: scale(1);
 }
 
-/* --------------------------------------------------------------------------
-   1. BUTTERY 3D POP-UP IN SAME POSITION (NO vertical shifting up)
-   -------------------------------------------------------------------------- */
 .proven-universal-btn:hover {
-  /* Pops up towards the viewer right in place */
   transform: scale(1.045);
 }
 
-/* --------------------------------------------------------------------------
-   2. TACTILE PRESS IN SAME POSITION (Sinks into the screen while holding)
-   -------------------------------------------------------------------------- */
 .proven-universal-btn:active,
 .proven-universal-btn.is-pressed {
-  /* Pushes deep into the surface in the exact same spot */
   transform: scale(0.96) !important;
   transition: 
     transform 0.14s cubic-bezier(0.25, 1, 0.5, 1),
     box-shadow 0.14s ease !important;
 }
 
-/* --------------------------------------------------------------------------
-   Button Variants with In-Place 3D Shadow Depth
-   -------------------------------------------------------------------------- */
-
-/* Primary Variant (Solid White) */
 .proven-universal-btn.btn-primary {
   background-color: #ffffff;
   color: #000000;
@@ -70,7 +51,6 @@
 
 .proven-universal-btn.btn-primary:hover {
   background-color: #ffffff;
-  /* Expands a 3D volumetric halo and shadow in-place */
   box-shadow: 
     0 8px 30px rgba(0, 0, 0, 0.65),
     0 0 30px rgba(59, 130, 246, 0.4),
@@ -85,7 +65,6 @@
     inset 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Glass Variant (Translucent Frosted) */
 .proven-universal-btn.btn-glass {
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
@@ -114,7 +93,6 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Navbar Compact Variant */
 .proven-universal-btn.btn-nav {
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
@@ -143,7 +121,6 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* Electric Blue Glow Variant */
 .proven-universal-btn.btn-blue {
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff;
@@ -170,7 +147,6 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Smooth Ambient Sheen Sweep */
 .proven-btn-sheen {
   position: absolute;
   top: 0;
@@ -192,7 +168,6 @@
   left: 150%;
 }
 
-/* Precise Icon & Typography Alignment */
 .proven-btn-content {
   display: inline-flex;
   align-items: center;
@@ -216,4 +191,3 @@
 .proven-universal-btn:hover .proven-btn-icon {
   transform: translateX(2px);
 }
-

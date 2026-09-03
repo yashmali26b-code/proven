@@ -1,6 +1,4 @@
-/* ==========================================================================
-   App Master Styles & 120fps Scroll Performance Engine
-   ========================================================================== */
+
 
 .App {
   width: 100%;
@@ -10,7 +8,7 @@
   overflow-x: hidden;
 }
 
-/* Global Hardware Scroll Boost: Disable hit-testing during active scroll */
+
 html.lenis, html.lenis body {
   height: auto;
 }

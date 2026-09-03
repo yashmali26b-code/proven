@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Stacking Workflow Cards Section - Ultra High 120fps Performance
-   ========================================================================== */
+
 
 .proven-stacking-section {
   position: relative;
@@ -35,7 +33,7 @@
   font-weight: 400;
 }
 
-/* Cards Container - Smooth Flowing Panels */
+
 .proven-stacking-cards-wrapper {
   display: flex;
   flex-direction: column;
@@ -43,7 +41,7 @@
   position: relative;
 }
 
-/* Individual Workflow Card - 100% Lag-Free GPU Acceleration */
+
 .proven-workflow-card {
   background: #05070c;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -63,7 +61,7 @@
   cursor: default;
 }
 
-/* Visual Image Left */
+
 .proven-workflow-img-box {
   width: 100%;
   height: 360px;
@@ -86,7 +84,7 @@
   pointer-events: none;
 }
 
-/* Info Right */
+
 .proven-workflow-info {
   display: flex;
   flex-direction: column;
@@ -131,7 +129,7 @@
   transform: translateX(4px);
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .proven-workflow-card {
     grid-template-columns: 1fr;

@@ -1,6 +1,4 @@
-/* ==========================================================================
-   iOS-Level Auth Modal - Frosted Glass & Obsidian Spring Sheet
-   ========================================================================== */
+
 
 .proven-auth-overlay {
   position: fixed;
@@ -47,9 +45,7 @@
     -webkit-backdrop-filter 0.3s cubic-bezier(0.32, 0, 0.67, 0);
 }
 
-/* ==========================================================================
-   Modal Card (Iconic iOS Spring Physics & Buttery Transitions)
-   ========================================================================== */
+
 .proven-auth-modal {
   position: relative;
   z-index: 2;
@@ -91,7 +87,7 @@
     filter 0.26s ease;
 }
 
-/* Subtle Fluted Blue Lens Wallpaper Behind Modal Panel (Low Opacity) */
+
 .proven-auth-wallpaper-bg {
   position: absolute;
   inset: 0;
@@ -101,7 +97,7 @@
   pointer-events: none;
   z-index: 1;
   border-radius: inherit;
-  opacity: 0.12; /* Subtle and unobtrusive */
+  opacity: 0.12; 
 }
 
 .proven-auth-cloud-mask {
@@ -130,7 +126,7 @@
   mix-blend-mode: screen;
 }
 
-/* iOS Pull Handle Bar (Mobile Only) */
+
 .proven-ios-drag-handle {
   display: none;
   width: 36px;
@@ -142,7 +138,7 @@
   z-index: 10;
 }
 
-/* Close Button (X) */
+
 .proven-auth-close-btn {
   position: absolute;
   top: 18px;
@@ -176,9 +172,7 @@
   z-index: 5;
 }
 
-/* ==========================================================================
-   Header & Direct Logo (No Label, No Outer Box)
-   ========================================================================== */
+
 .proven-auth-header {
   display: flex;
   flex-direction: column;
@@ -217,9 +211,7 @@
   max-width: 340px;
 }
 
-/* ==========================================================================
-   Auth Actions
-   ========================================================================== */
+
 .proven-auth-actions {
   display: flex;
   flex-direction: column;
@@ -228,7 +220,7 @@
   width: 100%;
 }
 
-/* Google Sign-In Button */
+
 .proven-google-auth-btn {
   display: flex;
   align-items: center;
@@ -276,7 +268,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Divider */
+
 .proven-auth-divider {
   display: flex;
   align-items: center;
@@ -325,9 +317,7 @@
   margin-top: 1px;
 }
 
-/* ==========================================================================
-   Hackathon Cyber Security Advisory Notice
-   ========================================================================== */
+
 .proven-auth-hackathon-notice {
   background: rgba(37, 99, 235, 0.06);
   border: 1px solid rgba(59, 130, 246, 0.22);
@@ -366,9 +356,7 @@
   font-weight: 600;
 }
 
-/* ==========================================================================
-   Success State
-   ========================================================================== */
+
 .proven-auth-success-state {
   display: flex;
   flex-direction: column;
@@ -445,9 +433,7 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* ==========================================================================
-   Mobile Optimization (iOS Bottom Sheet Drawer with Smooth GPU Transition)
-   ========================================================================== */
+
 @media (max-width: 600px) {
   .proven-auth-overlay {
     align-items: flex-end;
