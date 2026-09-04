@@ -3,7 +3,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDqdoVhKWOmwjLjJwjHtJnnt8WMVFrcjFY",
+  apiKey: "AIzaSyDqdoVhKWOmwjLjJwjHtJnnt8WMVFrcjFY", // I've REMOVE LOCAL3000 and all LOCALS ORIGIN SO THAT IT WORKS ON PRODUCTION FOR ME ONLY.
   authDomain: "proven-c4e44.firebaseapp.com",
   projectId: "proven-c4e44",
   storageBucket: "proven-c4e44.firebasestorage.app",
