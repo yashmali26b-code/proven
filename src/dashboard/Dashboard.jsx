@@ -25,11 +25,10 @@ import {
   Layers,
   ArrowLeft
 } from 'lucide-react';
-import UniversalButton, { BlueButton, PrimaryButton, NavButton } from '../components/universalbuttonhovers';
+import { BlueButton, NavButton } from '../components/universalbuttonhovers';
 import authService from '../services/authService';
 import documentService from '../services/documentService';
 import API_BASE_URL from '../api/globalbackendapi';
-import { generateDemoCombo } from '../services/sampleDocumentGenerator';
 import { extractClientOcr } from '../services/browserOcrService';
 import comboPanAadhaarImg from '../assets/combo_pan_aadhaar.jpg';
 import comboPanPassportImg from '../assets/combo_pan_passport.jpg';
@@ -127,6 +126,8 @@ const COMBO_CONFIGS = {
   }
 };
 
+const TIME_SLOTS = ['04:00', '08:00', '12:00', '16:00', '18:00', '20:00', 'Live'];
+
 export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) => {
   const activeUser = user || authService.getCurrentUser() || {
     name: 'Reviewer',
@@ -217,20 +218,16 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
   const [analyzing, setAnalyzing] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [scanError, setScanError] = useState(null);
-  const [isServerOnline, setIsServerOnline] = useState(true);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [scanStage, setScanStage] = useState(1);
   const [telemetryLogs, setTelemetryLogs] = useState([]);
   const terminalRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedKey, setCopiedKey] = useState(false);
-  const [uploadLimitNotice, setUploadLimitNotice] = useState(false);
   const [apiTabLang, setApiTabLang] = useState('curl');
   const [isTestingApi, setIsTestingApi] = useState(false);
   const [apiTestResponse, setApiTestResponse] = useState(null);
   const [selectedCombo, setSelectedCombo] = useState(null);
-  const [isGeneratingDemo, setIsGeneratingDemo] = useState(false);
 
   const slot1InputRef = useRef(null);
   const slot2InputRef = useRef(null);
@@ -313,39 +310,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     }, 250);
   };
 
-  const handleLoadDemo = async (comboId) => {
-    setIsGeneratingDemo(true);
-    setScanResult(null);
-    setScanError(null);
-    if (comboId === 'specimen_fake') {
-      setSelectedCombo('single_pan');
-    } else if (comboId === 'pan_passport') {
-      setSelectedCombo('pan_passport');
-    } else {
-      setSelectedCombo('pan_aadhaar');
-    }
-    try {
-      const files = await generateDemoCombo(comboId);
-      if (files && files.length > 0) {
-        setSelectedFiles(files);
-      }
-    } catch (err) {
-      console.error("Failed to generate demo combo:", err);
-    } finally {
-      setIsGeneratingDemo(false);
-    }
-  };
-
-  useEffect(() => {
-    const checkServer = async () => {
-      const isUp = await authService.checkBackendHealth();
-      setIsServerOnline(isUp);
-    };
-    checkServer();
-    const interval = setInterval(checkServer, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTo({
@@ -360,10 +324,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
       const newFiles = Array.from(e.target.files);
       setSelectedFiles((prev) => {
         const combined = [...prev, ...newFiles];
-        if (combined.length > 3) {
-          setUploadLimitNotice(true);
-          setTimeout(() => setUploadLimitNotice(false), 4000);
-        }
         return combined.slice(0, 3);
       });
       setScanResult(null);
@@ -371,45 +331,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     }
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
-    }
-  };
-
-  const removeFile = (index) => {
-    setSelectedFiles((prev) => prev.filter((_, idx) => idx !== index));
-    setScanResult(null);
-    setScanError(null);
-  };
-
-  const clearAllFiles = () => {
-    setSelectedFiles([]);
-    setScanResult(null);
-    setScanError(null);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const newFiles = Array.from(e.dataTransfer.files);
-      setSelectedFiles((prev) => {
-        const combined = [...prev, ...newFiles];
-        if (combined.length > 3) {
-          setUploadLimitNotice(true);
-          setTimeout(() => setUploadLimitNotice(false), 4000);
-        }
-        return combined.slice(0, 3);
-      });
-      setScanResult(null);
-      setScanError(null);
     }
   };
 
@@ -712,8 +633,6 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     );
   });
 
-  const timeSlots = ['04:00', '08:00', '12:00', '16:00', '18:00', '20:00', 'Live'];
-
   const chartData = useMemo(() => {
     const consistentTotal = records.length;
     const flaggedTotal = threats.length;
@@ -721,8 +640,8 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
 
     if (consistentTotal === 0 && flaggedTotal === 0) {
       const baselineY = 175;
-      const points = timeSlots.map((time, idx) => ({
-        x: (idx / (timeSlots.length - 1)) * 660 + 20,
+      const points = TIME_SLOTS.map((time, idx) => ({
+        x: (idx / (TIME_SLOTS.length - 1)) * 660 + 20,
         y: baselineY,
         val: 0,
         time
@@ -734,7 +653,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
 
     const baseY = 175;
     const topY = 35;
-    const step = 660 / (timeSlots.length - 1);
+    const step = 660 / (TIME_SLOTS.length - 1);
 
     const consistentVals = [
       Math.floor(consistentTotal * 0.1),
@@ -749,7 +668,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     const points = consistentVals.map((val, idx) => {
       const x = idx * step + 20;
       const y = baseY - (val / maxTotal) * (baseY - topY);
-      return { x, y, val, time: timeSlots[idx] };
+      return { x, y, val, time: TIME_SLOTS[idx] };
     });
 
     let linePath = `M ${points[0].x},${points[0].y}`;
@@ -768,7 +687,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
       threatPoints = flaggedVals.map((val, idx) => {
         const x = idx * step + 20;
         const y = baseY - (val / maxTotal) * (baseY - topY);
-        return { x, y, val, time: timeSlots[idx] };
+        return { x, y, val, time: TIME_SLOTS[idx] };
       });
       threatLinePath = `M ${threatPoints[0].x},${threatPoints[0].y}`;
       for (let i = 0; i < threatPoints.length - 1; i++) {

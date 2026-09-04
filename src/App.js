@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Home from './pages/home/home';
 import TeamPage from './teampage/TeamPage';
 import FaqPage from './pages/faq/FaqPage';
@@ -34,7 +34,7 @@ function App() {
     return 'home';
   });
 
-  const scrollToTopGlobal = () => {
+  const scrollToTopGlobal = useCallback(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     if (document.documentElement) {
       document.documentElement.scrollTop = 0;
@@ -47,9 +47,9 @@ function App() {
         window.lenis.scrollTo(0, { immediate: true });
       } catch (e) {}
     }
-  };
+  }, []);
 
-  const navigateTo = (view) => {
+  const navigateTo = useCallback((view) => {
     if (view === 'dashboard' && !currentUser && !authService.isAuthenticated()) {
       setIsAuthOpen(true);
       return;
@@ -61,7 +61,7 @@ function App() {
       window.history.pushState({ view }, '', newPath);
     }
     scrollToTopGlobal();
-  };
+  }, [currentUser, scrollToTopGlobal]);
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
@@ -84,6 +84,10 @@ function App() {
       }
     });
 
+    return () => clearTimeout(timer);
+  }, [currentUser, scrollToTopGlobal]);
+
+  useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.toLowerCase();
       if (path === '/team') {
@@ -107,7 +111,10 @@ function App() {
     };
 
     window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentUser, scrollToTopGlobal]);
 
+  useEffect(() => {
     let lenis = null;
     let rafId = null;
     const isMobile = window.innerWidth < 869;
@@ -185,18 +192,16 @@ function App() {
     document.addEventListener('click', handleAnchorClick);
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('popstate', handlePopState);
       document.removeEventListener('click', handleAnchorClick);
       if (rafId) {
         cancelAnimationFrame(rafId);
       }
-      if (lenis) {
+      if (lenis && typeof lenis.destroy === 'function') {
         lenis.destroy();
         delete window.lenis;
       }
     };
-  }, [currentView]);
+  }, [currentView, navigateTo, scrollToTopGlobal]);
 
   const handleLogout = async () => {
     try {

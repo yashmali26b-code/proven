@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HowItWorksPage.css';
 import Navbar from '../navbar/navbar';
 import GiantFooterSection from '../home/GiantFooterSection';
-import { PrimaryButton, BlueButton, GlassButton } from '../../components/universalbuttonhovers';
+import { PrimaryButton, BlueButton } from '../../components/universalbuttonhovers';
 import { 
   Play, 
   Pause, 
@@ -16,10 +16,8 @@ import {
   ChevronLeft, 
   Terminal, 
   Fingerprint, 
-  FileText, 
   AlertTriangle, 
   ArrowRight, 
-  RotateCcw, 
   Code2 
 } from 'lucide-react';
 
@@ -161,7 +159,6 @@ export function validateVerhoeff(numStr) {
 export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
   const [activeStage, setActiveStage] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [activeCodeTab, setActiveCodeTab] = useState('pipeline');
   const [interactiveAadhaar, setInteractiveAadhaar] = useState('4532 1234 5678');
   const [interactivePan, setInteractivePan] = useState('ABCPR1234F');
   const [testSurname, setTestSurname] = useState('RAJPUT');

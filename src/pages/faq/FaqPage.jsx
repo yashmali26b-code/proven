@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import './FaqPage.css';
 import Navbar from '../navbar/navbar';
 import GiantFooterSection from '../home/GiantFooterSection';
-import UniversalButton, { BlueButton, PrimaryButton } from '../../components/universalbuttonhovers';
+import { BlueButton, PrimaryButton } from '../../components/universalbuttonhovers';
 import { 
   Search, 
   ChevronDown, 
@@ -12,8 +12,6 @@ import {
   Lock, 
   CheckCircle2, 
   HelpCircle,
-  FileCheck,
-  Zap,
   ArrowRight
 } from 'lucide-react';
 

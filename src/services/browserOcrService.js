@@ -43,7 +43,7 @@ function scoreGovText(text, confidence = 0) {
   }
   if (/\b\d{4}\s?\d{4}\s?\d{4}\b/.test(text)) score += 40;
   if (/\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(text)) score += 40;
-  if (/\b\d{2}[\/\-]\d{2}[\/\-]\d{4}\b/.test(text)) score += 25;
+  if (/\b\d{2}[/-]\d{2}[/-]\d{4}\b/.test(text)) score += 25;
   score += Math.min(20, confidence * 0.2);
   return score;
 }
