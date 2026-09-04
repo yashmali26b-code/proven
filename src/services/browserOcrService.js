@@ -48,7 +48,7 @@ function scoreGovText(text, confidence = 0) {
   return score;
 }
 
-export async function fileToEnhancedCanvas(file, angle = 0) {
+export async function fileToEnhancedCanvas(file, angle = 0, highPass = false) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
@@ -64,10 +64,10 @@ export async function fileToEnhancedCanvas(file, angle = 0) {
 
       let scale = 1.0;
       const maxDim = Math.max(targetWidth, targetHeight);
-      if (maxDim > 1800) {
-        scale = 1800 / maxDim;
-      } else if (maxDim < 800) {
-        scale = 1200 / maxDim;
+      if (maxDim > 2200) {
+        scale = 2200 / maxDim;
+      } else if (maxDim < 1000) {
+        scale = 1400 / maxDim;
       }
 
       canvas.width = Math.round(targetWidth * scale);
@@ -86,9 +86,15 @@ export async function fileToEnhancedCanvas(file, angle = 0) {
       try {
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const d = imgData.data;
+        const contrastFactor = highPass ? 1.6 : 1.35;
+
         for (let i = 0; i < d.length; i += 4) {
           const gray = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-          const contrasted = Math.min(255, Math.max(0, (gray - 128) * 1.25 + 128));
+          let val = (gray - 128) * contrastFactor + 128;
+          if (highPass) {
+            val = val > 140 ? 255 : (val < 110 ? 0 : val);
+          }
+          const contrasted = Math.min(255, Math.max(0, val));
           d[i] = contrasted;
           d[i + 1] = contrasted;
           d[i + 2] = contrasted;
@@ -122,7 +128,7 @@ export async function extractClientOcr(file, onProgress = () => {}) {
       URL.revokeObjectURL(objectUrl);
       try {
         const isPortrait = img.height > img.width;
-        const anglesToTest = isPortrait ? [270, 90, 0] : [0];
+        const anglesToTest = isPortrait ? [0, 270, 90, 180] : [0, 90, 270, 180];
 
         const worker = await getBrowserOcrWorker(onProgress);
 
@@ -130,7 +136,7 @@ export async function extractClientOcr(file, onProgress = () => {}) {
         let bestScore = -1;
 
         for (const angle of anglesToTest) {
-          const canvas = await fileToEnhancedCanvas(file, angle);
+          const canvas = await fileToEnhancedCanvas(file, angle, false);
           const res = await worker.recognize(canvas);
           const rawText = res.data.text ? res.data.text.trim() : '';
           const conf = typeof res.data.confidence === 'number' ? res.data.confidence : 0;
@@ -147,7 +153,7 @@ export async function extractClientOcr(file, onProgress = () => {}) {
               })).filter(b => b.text.length > 0)
             };
 
-            if (score >= 40) break;
+            if (score >= 45 && rawText.length >= 40) break;
           }
         }
 
