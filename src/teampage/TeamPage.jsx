@@ -54,7 +54,7 @@ export const TeamPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, 
       email: 'nikhilson306@gmail.com'
     },
     {
-      name: 'Sejal Gopal Girase',
+      name: 'Sejal Gopalsing Girase',
       initials: 'SG',
       email: 'sejalg992@gmail.com'
     }
