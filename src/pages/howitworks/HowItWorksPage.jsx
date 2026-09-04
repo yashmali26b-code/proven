@@ -241,6 +241,7 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
           window.scrollTo({ top: 0, behavior: 'smooth' });
           if (window.lenis) window.lenis.scrollTo(0, { duration: 1.0 });
         }}
+        isHowPage={true}
       />
 
       <main className="proven-how-container">

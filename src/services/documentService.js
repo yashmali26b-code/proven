@@ -217,9 +217,11 @@ export const documentService = {
       this.addRecord(record);
     }
     if (isRejected) {
+      const isNonGov = agentResult.summary?.includes('NOT a recognized government') || 
+                       agentResult.analysisData?.documents?.some(d => d.docType?.includes('Non-Government') || d.tamperIndicators?.some(t => t.includes('Non-Government')));
       threatRecord = {
         id: agentResult.recordId || agentResult.verificationId,
-        title: 'Document Tampering / Identity Contradiction Flagged',
+        title: isNonGov ? 'Non-Government Image / Invalid Credential Uploaded' : 'Document Tampering / Identity Contradiction Flagged',
         description: agentResult.summary || `Flagged suspicious file: ${docNames.join(', ')}`,
         time: timestamp,
         severity: 'HIGH'

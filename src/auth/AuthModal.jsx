@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './AuthModal.css';
 import { 
   X, 
@@ -41,42 +41,55 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
   const [activeUser, setActiveUser] = useState(null);
   const [authError, setAuthError] = useState(null);
 
+  const isClosingRef = useRef(false);
+  const openTimerRef = useRef(null);
+  const closeTimerRef = useRef(null);
+
   const triggerClose = useCallback(() => {
-    if (isClosing) return;
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
     setIsClosing(true);
     setIsVisible(false);
-    setTimeout(() => {
+
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
       setShouldRender(false);
       setIsClosing(false);
+      isClosingRef.current = false;
       setLoading(false);
       setAuthSuccess(false);
       setAuthError(null);
       document.body.style.overflow = '';
       if (onClose) onClose();
-    }, 320);
-  }, [isClosing, onClose]);
+    }, 280);
+  }, [onClose]);
 
   useEffect(() => {
-    let timer;
     if (isOpen) {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+      isClosingRef.current = false;
       setShouldRender(true);
       setIsClosing(false);
       setAuthError(null);
       document.body.style.overflow = 'hidden';
-      timer = setTimeout(() => {
+
+      openTimerRef.current = setTimeout(() => {
         setIsVisible(true);
-      }, 30);
-    } else if (shouldRender && !isClosing) {
-      triggerClose();
+      }, 20);
+    } else {
+      if (shouldRender && !isClosingRef.current) {
+        triggerClose();
+      }
     }
+
     return () => {
-      if (timer) clearTimeout(timer);
+      if (openTimerRef.current) clearTimeout(openTimerRef.current);
     };
-  }, [isOpen, shouldRender, isClosing, triggerClose]);
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && shouldRender && !isClosing) {
+      if (e.key === 'Escape' && shouldRender && !isClosingRef.current) {
         triggerClose();
       }
     };
@@ -84,7 +97,15 @@ export const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [shouldRender, isClosing, triggerClose]);
+  }, [shouldRender, triggerClose]);
+
+  useEffect(() => {
+    return () => {
+      if (openTimerRef.current) clearTimeout(openTimerRef.current);
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   if (!shouldRender) return null;
 

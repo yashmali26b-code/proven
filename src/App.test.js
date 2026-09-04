@@ -6,6 +6,8 @@ jest.mock('lenis', () => {
   return jest.fn().mockImplementation(() => ({
     raf: jest.fn(),
     scrollTo: jest.fn(),
+    start: jest.fn(),
+    stop: jest.fn(),
     destroy: jest.fn()
   }));
 });

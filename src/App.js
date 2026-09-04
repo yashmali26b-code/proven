@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Home from './pages/home/home';
 import TeamPage from './teampage/TeamPage';
 import FaqPage from './pages/faq/FaqPage';
@@ -13,6 +13,12 @@ import './App.css';
 function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(() => authService.getCurrentUser());
+  const currentUserRef = useRef(currentUser);
+
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
+
   const [currentView, setCurrentView] = useState(() => {
     const path = window.location.pathname.toLowerCase();
     const hash = window.location.hash.toLowerCase();
@@ -50,7 +56,7 @@ function App() {
   }, []);
 
   const navigateTo = useCallback((view) => {
-    if (view === 'dashboard' && !currentUser && !authService.isAuthenticated()) {
+    if (view === 'dashboard' && !currentUserRef.current && !authService.isAuthenticated()) {
       setIsAuthOpen(true);
       return;
     }
@@ -61,20 +67,15 @@ function App() {
       window.history.pushState({ view }, '', newPath);
     }
     scrollToTopGlobal();
-  }, [currentUser, scrollToTopGlobal]);
+  }, [scrollToTopGlobal]);
 
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-  }, []);
-
-  useEffect(() => {
-    scrollToTopGlobal();
-    const timer = setTimeout(scrollToTopGlobal, 50);
 
     const path = window.location.pathname.toLowerCase();
-    if (path === '/dashboard' && !currentUser && !authService.isAuthenticated()) {
+    if (path === '/dashboard' && !authService.isAuthenticated()) {
       setIsAuthOpen(true);
     }
 
@@ -83,9 +84,7 @@ function App() {
         setCurrentUser(user);
       }
     });
-
-    return () => clearTimeout(timer);
-  }, [currentUser, scrollToTopGlobal]);
+  }, []);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -97,7 +96,7 @@ function App() {
       } else if (path === '/how-it-works') {
         setCurrentView('how');
       } else if (path === '/dashboard') {
-        if (!currentUser && !authService.isAuthenticated()) {
+        if (!currentUserRef.current && !authService.isAuthenticated()) {
           setCurrentView('home');
           setIsAuthOpen(true);
           window.history.replaceState(null, '', '/');
@@ -112,95 +111,106 @@ function App() {
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [currentUser, scrollToTopGlobal]);
+  }, [scrollToTopGlobal]);
 
   useEffect(() => {
-    let lenis = null;
-    let rafId = null;
     const isMobile = window.innerWidth < 869;
+    if (isMobile) return;
 
-    if (!isMobile && currentView !== 'dashboard') {
-      lenis = new Lenis({
-        duration: 0.9,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1.05,
-        touchMultiplier: 1.5,
-        infinite: false
-      });
+    const lenis = new Lenis({
+      duration: 0.9,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.05,
+      touchMultiplier: 1.5,
+      infinite: false
+    });
 
-      window.lenis = lenis;
+    window.lenis = lenis;
 
-      function raf(time) {
-        if (lenis) {
-          lenis.raf(time);
-          rafId = requestAnimationFrame(raf);
-        }
+    let rafId;
+    function raf(time) {
+      if (window.lenis) {
+        window.lenis.raf(time);
       }
-
       rafId = requestAnimationFrame(raf);
-    } else {
-      window.lenis = null;
     }
+    rafId = requestAnimationFrame(raf);
 
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (window.lenis && typeof window.lenis.destroy === 'function') {
+        window.lenis.destroy();
+      }
+      delete window.lenis;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.lenis) {
+      if (currentView === 'dashboard') {
+        if (typeof window.lenis.stop === 'function') window.lenis.stop();
+      } else {
+        if (typeof window.lenis.start === 'function') window.lenis.start();
+      }
+    }
+  }, [currentView]);
+
+  useEffect(() => {
     const handleAnchorClick = (e) => {
+      if (e.defaultPrevented) return;
+
       const target = e.target.closest('a[href^="#"], a[href^="/"]');
-      if (target) {
-        const href = target.getAttribute('href');
-        if (href === '#team' || href === '/team') {
-          e.preventDefault();
-          navigateTo('team');
-          return;
+      if (!target) return;
+
+      if (target.target === '_blank' || target.getAttribute('rel')?.includes('external')) return;
+
+      const href = target.getAttribute('href');
+      if (!href) return;
+
+      if (href === '#team' || href === '/team') {
+        e.preventDefault();
+        navigateTo('team');
+        return;
+      }
+      if (href === '#faq' || href === '/faq') {
+        e.preventDefault();
+        navigateTo('faq');
+        return;
+      }
+      if (href === '/how-it-works') {
+        e.preventDefault();
+        navigateTo('how');
+        return;
+      }
+      if (href === '#home' || href === '/') {
+        e.preventDefault();
+        if (currentView === 'team' || currentView === 'faq' || currentView === 'how') {
+          navigateTo('home');
+        } else if (window.lenis) {
+          window.lenis.scrollTo(0, { duration: 1.0 });
+        } else {
+          scrollToTopGlobal();
         }
-        if (href === '#faq' || href === '/faq') {
+        return;
+      }
+      if (href.startsWith('#') && href.length > 1) {
+        const element = document.querySelector(href);
+        if (element) {
           e.preventDefault();
-          navigateTo('faq');
-          return;
-        }
-        if (href === '/how-it-works') {
-          e.preventDefault();
-          navigateTo('how');
-          return;
-        }
-        if (href === '#home' || href === '/') {
-          e.preventDefault();
-          if (currentView === 'team' || currentView === 'faq' || currentView === 'how') {
-            navigateTo('home');
-          } else if (lenis) {
-            lenis.scrollTo(0, { duration: 1.0 });
+          if (window.lenis) {
+            window.lenis.scrollTo(element, { offset: -30, duration: 1.0 });
           } else {
-            scrollToTopGlobal();
-          }
-          return;
-        }
-        if (href && href.startsWith('#') && href.length > 1) {
-          const element = document.querySelector(href);
-          if (element) {
-            e.preventDefault();
-            if (lenis) {
-              lenis.scrollTo(element, { offset: -30, duration: 1.0 });
-            } else {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
+            element.scrollIntoView({ behavior: 'smooth' });
           }
         }
       }
     };
 
     document.addEventListener('click', handleAnchorClick);
-
-    return () => {
-      document.removeEventListener('click', handleAnchorClick);
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-      if (lenis && typeof lenis.destroy === 'function') {
-        lenis.destroy();
-        delete window.lenis;
-      }
-    };
+    return () => document.removeEventListener('click', handleAnchorClick);
   }, [currentView, navigateTo, scrollToTopGlobal]);
 
   const handleLogout = async () => {

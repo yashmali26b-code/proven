@@ -2348,6 +2348,27 @@
   letter-spacing: 0.03em;
 }
 
+.ocr-doc-badge.non-gov-badge {
+  color: #f87171;
+}
+
+.ocr-doc-card.flagged-card {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.ocr-tamper-warning-tag {
+  margin-top: 8px;
+  padding: 5px 8px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  font-size: 0.7rem;
+  color: #fca5a5;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
 .ocr-doc-status {
   font-size: 0.65rem;
   font-weight: 700;

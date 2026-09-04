@@ -64,23 +64,49 @@
 }
 
 .proven-nav-logo {
-  height: 26px;
+  height: 28px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
   transition: filter 0.3s ease;
+  flex-shrink: 0;
 }
 
 .proven-nav-brand:hover .proven-nav-logo {
   filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6));
 }
 
+.proven-nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  gap: 3px;
+}
+
 .proven-nav-title {
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: #ffffff;
   text-transform: uppercase;
+  line-height: 1;
+}
+
+.proven-nav-tagline {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #94a3b8;
+  text-transform: none;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.proven-nav-brand:hover .proven-nav-tagline {
+  color: #93c5fd;
 }
 
 
@@ -189,7 +215,11 @@
   }
 
   .proven-nav-title {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
+  }
+
+  .proven-nav-tagline {
+    font-size: 0.55rem;
   }
 
   .proven-mobile-toggle {

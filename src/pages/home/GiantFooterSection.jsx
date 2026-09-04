@@ -106,7 +106,7 @@ export const GiantFooterSection = ({ onNavigateTeam, onNavigateHome, onNavigateF
                   }
                 }}
               >
-                Tech Smashers Team
+                Model Mavericks Team
               </a>
               <a 
                 href="/faq" 

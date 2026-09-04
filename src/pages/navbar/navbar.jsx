@@ -31,7 +31,7 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
 
   const handleNavClick = (id) => {
     setMobileOpen(false);
-    if ((isTeamPage || isFaqPage) && onNavigateHome) {
+    if ((isTeamPage || isFaqPage || isHowPage) && onNavigateHome) {
       onNavigateHome();
       setTimeout(() => {
         const element = document.querySelector(id);
@@ -69,7 +69,7 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
           className="proven-nav-brand"
           onClick={(e) => {
             e.preventDefault();
-            if ((isTeamPage || isFaqPage) && onNavigateHome) {
+            if ((isTeamPage || isFaqPage || isHowPage) && onNavigateHome) {
               onNavigateHome();
             } else {
               handleNavClick('#home');
@@ -77,7 +77,10 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
           }}
         >
           <img src={logoImg} alt="PROVEN Logo" className="proven-nav-logo" />
-          <span className="proven-nav-title">PROVEN</span>
+          <div className="proven-nav-brand-text">
+            <span className="proven-nav-title">PROVEN</span>
+            <span className="proven-nav-tagline">AI-Powered Identity Assurance</span>
+          </div>
         </a>
 
         <div className="proven-nav-center">
@@ -85,7 +88,7 @@ export const Navbar = ({ user, onStartSecuring, onExploreDemo, onNavigateTeam, o
             <li>
               <a 
                 href="/how-it-works" 
-                className="proven-nav-link" 
+                className={`proven-nav-link ${isHowPage ? 'active' : ''}`} 
                 onClick={(e) => {
                   e.preventDefault();
                   if (onNavigateHow) {

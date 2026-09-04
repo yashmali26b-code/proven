@@ -424,6 +424,8 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     const recordId = result.recordId || '#PRV-AUTH-1001';
     const timeStr = result.timestamp || new Date().toLocaleString();
 
+    const isNonGov = docs.some(d => d.docType?.includes('Non-Government') || d.tamperIndicators?.some(t => t.includes('Non-Government'))) || result.summary?.includes('NOT a recognized government');
+
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -448,13 +450,12 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     .cert-card { max-width: 820px; margin: 0 auto; background: #0f172a; border: 2px solid #3b82f6; border-radius: 16px; padding: 36px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); }
     .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #334155; padding-bottom: 20px; margin-bottom: 24px; }
     .title { font-size: 22px; font-weight: 800; color: #60a5fa; margin: 0; letter-spacing: 0.04em; }
-    .sub { font-size: 12px; color: #94a3b8; margin-top: 5px; font-weight: 500; }
-    .cert-id-tag { background: rgba(59, 130, 246, 0.15); border: 1px solid #3b82f6; color: #93c5fd; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; font-family: monospace; }
-    
-    .verdict-box { padding: 18px 22px; border-radius: 12px; margin-bottom: 26px; background: ${isClean ? 'rgba(16,185,129,0.14)' : (isReview ? 'rgba(245,158,11,0.14)' : 'rgba(239,68,68,0.14)')}; border: 1.5px solid ${isClean ? '#10b981' : (isReview ? '#f59e0b' : '#ef4444')}; color: ${isClean ? '#34d399' : (isReview ? '#fbbf24' : '#f87171')}; }
-    .verdict-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
-    .verdict-meta { font-size: 12px; color: #e2e8f0; margin-bottom: 8px; }
-    .verdict-desc { font-size: 12.5px; line-height: 1.5; color: #cbd5e1; }
+    .sub { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+    .cert-id-tag { background: rgba(59,130,246,0.15); border: 1px solid #3b82f6; color: #93c5fd; font-family: monospace; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 8px; }
+    .verdict-box { border: 2px solid ${isClean ? '#10b981' : (isReview ? '#f59e0b' : '#ef4444')}; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; background: ${isClean ? 'rgba(16,185,129,0.08)' : (isReview ? 'rgba(245,158,11,0.08)' : 'rgba(239,68,68,0.08)')}; }
+    .verdict-title { font-size: 16px; font-weight: 800; color: ${isClean ? '#34d399' : (isReview ? '#fbbf24' : '#f87171')}; margin-bottom: 6px; letter-spacing: 0.03em; }
+    .verdict-meta { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+    .verdict-desc { font-size: 13px; color: #e2e8f0; line-height: 1.5; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
     .info-card { background: rgba(2, 6, 23, 0.6); border: 1px solid #334155; border-radius: 10px; padding: 14px 18px; font-size: 12px; }
@@ -490,7 +491,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     </div>
 
     <div class="verdict-box">
-      <div class="verdict-title">${isClean ? '✓ OFFICIAL VERDICT: AUTHENTIC IDENTITY DNA' : (isReview ? '⚠ OFFICIAL VERDICT: MANUAL FORENSIC REVIEW REQUIRED' : '✖ SECURITY ALERT: FORGERY / MISMATCH DETECTED')}</div>
+      <div class="verdict-title">${isClean ? '✓ OFFICIAL VERDICT: AUTHENTIC IDENTITY DNA' : (isReview ? '⚠ OFFICIAL VERDICT: MANUAL FORENSIC REVIEW REQUIRED' : (isNonGov ? '✖ SECURITY ALERT: NON-GOVERNMENT IMAGE DETECTED' : '✖ SECURITY ALERT: FORGERY / MISMATCH DETECTED'))}</div>
       <div class="verdict-meta">Confidence Rating: <strong>${result.confidence}</strong> • Claimed Subject: <strong>${subName}</strong> • Issued: ${timeStr}</div>
       <div class="verdict-desc">${result.summary || result.flagReason || 'Forensic cross-document analysis completed successfully.'}</div>
     </div>
@@ -1450,7 +1451,11 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                           <>
                             <AlertTriangle size={22} className="result-icon-red" />
                             <div>
-                              <h3>SECURITY ALERT • VERIFICATION REJECTED</h3>
+                              <h3>
+                                {scanResult.analysisData?.documents?.some(d => d.docType?.includes('Non-Government') || d.tamperIndicators?.some(t => t.includes('Non-Government'))) || scanResult.summary?.includes('NOT a recognized government')
+                                  ? 'NON-GOVERNMENT PHOTO DETECTED • VERIFICATION REJECTED'
+                                  : 'SECURITY ALERT • VERIFICATION REJECTED'}
+                              </h3>
                               <p>{scanResult.summary || scanResult.flagReason}</p>
                             </div>
                           </>
@@ -1493,9 +1498,9 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                         <h4 className="ocr-breakdown-title">Extracted Document OCR & Identity Attributes</h4>
                         <div className="ocr-cards-grid">
                           {scanResult.analysisData.documents.slice(0, scanResult.docs.length).map((doc, dIdx) => (
-                            <div key={dIdx} className="ocr-doc-card">
+                            <div key={dIdx} className={`ocr-doc-card ${doc.tamperStatus === 'FLAGGED' ? 'flagged-card' : ''}`}>
                               <div className="ocr-doc-header">
-                                <span className="ocr-doc-badge">{doc.docType || `Document 0${dIdx + 1}`}</span>
+                                <span className={`ocr-doc-badge ${doc.docType?.includes('Non-Government') ? 'non-gov-badge' : ''}`}>{doc.docType || `Document 0${dIdx + 1}`}</span>
                                 <span className={`ocr-doc-status ${doc.tamperStatus === 'FLAGGED' ? 'flagged' : 'clean'}`}>
                                   {doc.tamperStatus || 'CLEAN'}
                                 </span>
@@ -1507,6 +1512,11 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                                 {doc.gender && <div className="ocr-field"><span className="ocr-k">Gender:</span> <span className="ocr-v">{doc.gender}</span></div>}
                                 {doc.fatherName && <div className="ocr-field"><span className="ocr-k">Kinship / Father:</span> <span className="ocr-v">{doc.fatherName}</span></div>}
                               </div>
+                              {doc.tamperIndicators && doc.tamperIndicators.length > 0 && (
+                                <div className="ocr-tamper-warning-tag">
+                                  ⚠️ {doc.tamperIndicators.join(', ')}
+                                </div>
+                              )}
                             </div>
                           ))}
                         </div>
@@ -1662,7 +1672,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                       <div className="report-modal-body">
                         <div className={`report-verdict-banner ${scanResult.status}`}>
                           <div className="verdict-tag">
-                            {scanResult.status === 'verified' ? '✓ OFFICIAL VERDICT: AUTHENTIC IDENTITY DNA' : (scanResult.status === 'review' ? '⚠ OFFICIAL VERDICT: MANUAL FORENSIC REVIEW REQUIRED' : '✖ SECURITY ALERT: FORGERY / FRAUD DETECTED')}
+                            {scanResult.status === 'verified' ? '✓ OFFICIAL VERDICT: AUTHENTIC IDENTITY DNA' : (scanResult.status === 'review' ? '⚠ OFFICIAL VERDICT: MANUAL FORENSIC REVIEW REQUIRED' : ((scanResult.analysisData?.documents?.some(d => d.docType?.includes('Non-Government') || d.tamperIndicators?.some(t => t.includes('Non-Government'))) || scanResult.summary?.includes('NOT a recognized government')) ? '✖ SECURITY ALERT: NON-GOVERNMENT IMAGE DETECTED' : '✖ SECURITY ALERT: FORGERY / FRAUD DETECTED'))}
                           </div>
                           <div className="verdict-score-row">
                             <span className="verdict-score">Confidence Rating: {scanResult.confidence}</span>
