@@ -34,6 +34,21 @@ function App() {
     return 'home';
   });
 
+  const scrollToTopGlobal = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
+    if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { immediate: true });
+      } catch (e) {}
+    }
+  };
+
   const navigateTo = (view) => {
     if (view === 'dashboard' && !currentUser && !authService.isAuthenticated()) {
       setIsAuthOpen(true);
@@ -45,13 +60,19 @@ function App() {
     if (window.location.pathname !== newPath || window.location.hash) {
       window.history.pushState({ view }, '', newPath);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true });
-    }
+    scrollToTopGlobal();
   };
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
+    scrollToTopGlobal();
+    const timer = setTimeout(scrollToTopGlobal, 50);
+
     const path = window.location.pathname.toLowerCase();
     if (path === '/dashboard' && !currentUser && !authService.isAuthenticated()) {
       setIsAuthOpen(true);
@@ -82,14 +103,16 @@ function App() {
       } else {
         setCurrentView('home');
       }
+      scrollToTopGlobal();
     };
 
     window.addEventListener('popstate', handlePopState);
 
     let lenis = null;
+    let rafId = null;
     const isMobile = window.innerWidth < 869;
 
-    if (!isMobile) {
+    if (!isMobile && currentView !== 'dashboard') {
       lenis = new Lenis({
         duration: 0.9,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -104,11 +127,13 @@ function App() {
       window.lenis = lenis;
 
       function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+        if (lenis) {
+          lenis.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
       }
 
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     } else {
       window.lenis = null;
     }
@@ -139,7 +164,7 @@ function App() {
           } else if (lenis) {
             lenis.scrollTo(0, { duration: 1.0 });
           } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            scrollToTopGlobal();
           }
           return;
         }
@@ -160,8 +185,12 @@ function App() {
     document.addEventListener('click', handleAnchorClick);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('popstate', handlePopState);
       document.removeEventListener('click', handleAnchorClick);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
       if (lenis) {
         lenis.destroy();
         delete window.lenis;

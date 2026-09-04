@@ -1,4 +1,5 @@
 import API_BASE_URL from '../api/globalbackendapi';
+import authService from './authService';
 
 const STORAGE_KEY = 'proven_verified_records';
 const THREATS_KEY = 'proven_threat_records';
@@ -71,9 +72,10 @@ export const documentService = {
 
     let user = null;
     try {
-      const userStr = localStorage.getItem('proven_user');
-      if (userStr) user = JSON.parse(userStr);
+      user = authService.getCurrentUser();
     } catch (e) {}
+
+    const token = authService.getToken();
 
     const formData = new FormData();
     filesArray.forEach((file) => {
@@ -86,13 +88,18 @@ export const documentService = {
       formData.append('clientOcrTexts', JSON.stringify(clientOcrTexts));
     }
 
+    const headers = {
+      'Accept': 'text/event-stream'
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     let response;
     try {
       response = await fetch(`${API_BASE_URL}/api/agent/analyze-documents?stream=true`, {
         method: 'POST',
-        headers: {
-          'Accept': 'text/event-stream'
-        },
+        headers,
         body: formData
       });
     } catch (networkErr) {
@@ -103,6 +110,16 @@ export const documentService = {
 
     if (!response.ok) {
       const errJson = await response.json().catch(() => ({}));
+      if (response.status === 429) {
+        throw new Error(
+          errJson.error || 'Rate limit reached. Please wait a moment before sending more document verification requests.'
+        );
+      }
+      if (response.status === 401) {
+        throw new Error(
+          errJson.error || 'Authentication required: Missing or invalid JWT token. Please sign in to verify documents.'
+        );
+      }
       throw new Error(
         errJson.error || `Forensic service returned error code ${response.status}: ${response.statusText}`
       );
@@ -195,11 +212,12 @@ export const documentService = {
       metrics
     };
 
+    let threatRecord = null;
     if (isVerified || isReview) {
       this.addRecord(record);
     }
     if (isRejected) {
-      const threatRecord = {
+      threatRecord = {
         id: agentResult.recordId || agentResult.verificationId,
         title: 'Document Tampering / Identity Contradiction Flagged',
         description: agentResult.summary || `Flagged suspicious file: ${docNames.join(', ')}`,
@@ -208,6 +226,10 @@ export const documentService = {
       };
       this.addThreat(threatRecord);
     }
+
+    try {
+      authService.saveScanRecord(isVerified || isReview ? record : null, threatRecord);
+    } catch (e) {}
 
     const cross = agentResult.analysisData?.crossDocumentAnalysis || {};
 

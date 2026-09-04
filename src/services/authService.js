@@ -76,9 +76,11 @@ export const authService = {
       } catch (e) {}
     }
 
-    localStorage.setItem('proven_token', idToken);
+    const jwtToken = data.token || idToken;
+
+    localStorage.setItem('proven_token', jwtToken);
     localStorage.setItem('proven_user', JSON.stringify(guestUser));
-    return { success: true, user: guestUser, token: idToken };
+    return { success: true, user: guestUser, token: jwtToken };
   },
 
   async loginWithGoogle() {
@@ -131,9 +133,11 @@ export const authService = {
       } catch (e) {}
     }
 
-    localStorage.setItem('proven_token', idToken);
+    const jwtToken = data.token || idToken;
+
+    localStorage.setItem('proven_token', jwtToken);
     localStorage.setItem('proven_user', JSON.stringify(verifiedUser));
-    return { success: true, user: verifiedUser, token: idToken };
+    return { success: true, user: verifiedUser, token: jwtToken };
   },
 
   async verifySession() {
@@ -154,6 +158,9 @@ export const authService = {
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.user) {
+          if (data.token) {
+            localStorage.setItem('proven_token', data.token);
+          }
           localStorage.setItem('proven_user', JSON.stringify(data.user));
           if (data.user.checkedDocs && data.user.checkedDocs.length > 0) {
             try {
@@ -175,6 +182,37 @@ export const authService = {
       console.warn('Backend offline during session verify:', e.message);
     }
     return this.getCurrentUser();
+  },
+
+  async saveScanRecord(record, threat) {
+    const token = this.getToken();
+    const user = this.getCurrentUser();
+    if (!token || !user) return false;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/save-scan`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          uid: user.uid,
+          record,
+          threat
+        })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.user) {
+          localStorage.setItem('proven_user', JSON.stringify(data.user));
+        }
+        return true;
+      }
+    } catch (e) {
+      console.warn('Could not sync scan record to backend:', e);
+    }
+    return false;
   },
 
   async logout() {

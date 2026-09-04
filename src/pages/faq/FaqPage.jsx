@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './FaqPage.css';
 import Navbar from '../navbar/navbar';
 import GiantFooterSection from '../home/GiantFooterSection';
@@ -95,6 +95,17 @@ export const FaqPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, o
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [openItems, setOpenItems] = useState({ 'groq-lpu': true, 'cross-doc-dna': true });
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { immediate: true });
+      } catch (e) {}
+    }
+  }, []);
 
   const toggleItem = (id) => {
     setOpenItems(prev => ({

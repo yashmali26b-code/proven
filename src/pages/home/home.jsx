@@ -11,6 +11,17 @@ export const Home = ({ user, onNavigateTeam, onNavigateFaq, onNavigateHow, onOpe
   const heroRef = useRef(null);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { immediate: true });
+      } catch (e) {}
+    }
+  }, []);
+
+  useEffect(() => {
     if (window.innerWidth < 869) {
       if (heroRef.current) {
         heroRef.current.style.transform = 'none';

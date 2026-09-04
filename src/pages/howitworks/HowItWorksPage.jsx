@@ -169,6 +169,17 @@ export const HowItWorksPage = ({ user, onNavigateHome, onNavigateTeam, onNavigat
   const currentStage = PIPELINE_STAGES[activeStage - 1];
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { immediate: true });
+      } catch (e) {}
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isPlaying) return;
     const timer = setInterval(() => {
       setActiveStage((prev) => (prev >= 5 ? 1 : prev + 1));

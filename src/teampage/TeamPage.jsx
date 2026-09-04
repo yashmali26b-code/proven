@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TeamPage.css';
 import Navbar from '../pages/navbar/navbar';
 import GiantFooterSection from '../pages/home/GiantFooterSection';
@@ -12,6 +12,17 @@ const GithubIcon = ({ size = 15 }) => (
 
 export const TeamPage = ({ user, onNavigateHome, onNavigateTeam, onNavigateFaq, onOpenAuth }) => {
   const [copiedEmail, setCopiedEmail] = useState(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    if (window.lenis) {
+      try {
+        window.lenis.scrollTo(0, { immediate: true });
+      } catch (e) {}
+    }
+  }, []);
 
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email);

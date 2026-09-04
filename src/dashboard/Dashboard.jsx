@@ -157,7 +157,25 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     return 'overview';
   };
 
+  const mainContentRef = useRef(null);
   const [activeTab, setActiveTabState] = useState(getInitialTab);
+
+  const scrollToTop = () => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      mainContentRef.current.scrollTop = 0;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+    }
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    }
+  };
 
   const setActiveTab = (newTab) => {
     setActiveTabState(newTab);
@@ -167,7 +185,12 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
         window.history.pushState({ view: 'dashboard', tab: newTab }, '', newUrl);
       }
     } catch (e) {}
+    scrollToTop();
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, [activeTab]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -177,6 +200,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
         const validTabs = ['overview', 'verify', 'vault', 'threats', 'api'];
         if (validTabs.includes(tabParam.toLowerCase())) {
           setActiveTabState(tabParam.toLowerCase());
+          scrollToTop();
         }
       } catch (e) {}
     };
@@ -462,6 +486,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
       setScanResult(result);
       setRecords(documentService.getRecords());
       setThreats(documentService.getThreats());
+      scrollToTop();
     } catch (err) {
       console.error('Scan error:', err);
       setScanError(err.message || 'Failed to connect to Forensic Backend service. Please ensure the backend is running.');
@@ -652,10 +677,11 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
     setIsTestingApi(true);
     setApiTestResponse(null);
     const start = Date.now();
+    const token = authService.getToken() || `prv_live_${activeUser.uid || 'sih2026'}_94f8a1290bb34c`;
     try {
       const response = await fetch(`${API_BASE_URL}/api/agent/status`, {
         headers: {
-          'Authorization': `Bearer prv_live_${activeUser.uid || 'sih2026'}_94f8a1290bb34c`
+          'Authorization': `Bearer ${token}`
         }
       });
       const data = await response.json();
@@ -847,7 +873,7 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
           </div>
         </aside>
 
-        <main className="proven-dashboard-main" data-lenis-prevent="true">
+        <main className="proven-dashboard-main" data-lenis-prevent="true" ref={mainContentRef}>
           <header className="proven-dash-topbar">
             <div className="proven-dash-mobile-top-row">
               <div className="proven-dash-mobile-brand" onClick={onNavigateHome}>
@@ -1689,6 +1715,8 @@ export const Dashboard = ({ user, onLogout, onNavigateHome, onNavigateTeam }) =>
                         onClick={() => {
                           setScanResult(null);
                           setSelectedFiles([]);
+                          setSlotFiles({ slot1: null, slot2: null });
+                          scrollToTop();
                         }}
                       >
                         <Upload size={14} />
