@@ -215,6 +215,63 @@ export const authService = {
     return false;
   },
 
+  async sendOtp(email, botProof) {
+    const isBackendUp = await this.checkBackendHealth();
+    if (!isBackendUp) {
+      throw new Error(`Forensic Backend Offline: Cannot send OTP email.`);
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/auth/send-otp`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, botProof })
+    }).catch(() => {
+      throw new Error(`Failed to connect to Forensic Backend service.`);
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || `Failed to send OTP code.`);
+    }
+
+    return data;
+  },
+
+  async verifyOtp(email, otp) {
+    const isBackendUp = await this.checkBackendHealth();
+    if (!isBackendUp) {
+      throw new Error(`Forensic Backend Offline: Cannot verify OTP code.`);
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/auth/verify-otp`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, otp })
+    }).catch(() => {
+      throw new Error(`Failed to connect to Forensic Backend service.`);
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success || !data.user) {
+      throw new Error(data.error || `Invalid or expired OTP code.`);
+    }
+
+    const verifiedUser = {
+      ...data.user,
+      role: 'Reviewer'
+    };
+
+    const jwtToken = data.token;
+    localStorage.setItem('proven_token', jwtToken);
+    localStorage.setItem('proven_user', JSON.stringify(verifiedUser));
+
+    return { success: true, user: verifiedUser, token: jwtToken };
+  },
+
   async logout() {
     try {
       await clientSignOut(clientAuth);

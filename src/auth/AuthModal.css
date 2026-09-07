@@ -1,5 +1,3 @@
-
-
 .proven-auth-overlay {
   position: fixed;
   inset: 0;
@@ -17,19 +15,19 @@
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   transition: 
-    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    -webkit-backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    -webkit-backdrop-filter 0.36s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, backdrop-filter;
 }
 
 .proven-auth-overlay.is-visible {
   opacity: 1;
   pointer-events: auto;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(2, 6, 18, 0.78);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 .proven-auth-overlay.is-closing {
@@ -39,10 +37,10 @@
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   transition: 
-    opacity 0.26s cubic-bezier(0.32, 0, 0.67, 0),
-    background 0.26s cubic-bezier(0.32, 0, 0.67, 0),
-    backdrop-filter 0.26s cubic-bezier(0.32, 0, 0.67, 0),
-    -webkit-backdrop-filter 0.26s cubic-bezier(0.32, 0, 0.67, 0);
+    opacity 0.28s cubic-bezier(0.32, 0, 0.67, 0),
+    background 0.28s cubic-bezier(0.32, 0, 0.67, 0),
+    backdrop-filter 0.28s cubic-bezier(0.32, 0, 0.67, 0),
+    -webkit-backdrop-filter 0.28s cubic-bezier(0.32, 0, 0.67, 0);
 }
 
 .proven-auth-modal {
@@ -56,31 +54,65 @@
   padding: 38px 32px 32px 32px;
   box-shadow: 
     0 30px 80px rgba(0, 0, 0, 0.95),
-    0 0 35px rgba(37, 99, 235, 0.12),
+    0 0 35px rgba(37, 99, 235, 0.14),
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
   overflow: hidden;
-  transform: scale(0.93) translateY(20px);
+  transform: scale(0.88) translateY(24px);
   opacity: 0;
+  filter: blur(4px);
   transition: 
-    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+    transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1),
+    opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
   transform-origin: center center;
 }
 
 .proven-auth-overlay.is-visible .proven-auth-modal {
   transform: scale(1) translateY(0);
   opacity: 1;
+  filter: blur(0px);
 }
 
 .proven-auth-overlay.is-closing .proven-auth-modal {
-  transform: scale(0.95) translateY(14px);
+  transform: scale(0.92) translateY(16px);
   opacity: 0;
+  filter: blur(3px);
   transition: 
-    transform 0.25s cubic-bezier(0.32, 0, 0.67, 0),
-    opacity 0.22s ease;
+    transform 0.26s cubic-bezier(0.32, 0, 0.67, 0),
+    opacity 0.24s cubic-bezier(0.32, 0, 0.67, 0),
+    filter 0.24s cubic-bezier(0.32, 0, 0.67, 0);
 }
 
+/* Staggered entrance for buttery opening feel */
+.proven-auth-header,
+.proven-auth-actions,
+.proven-auth-hackathon-notice {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 
+    opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.proven-auth-overlay.is-visible .proven-auth-header {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.04s;
+}
+
+.proven-auth-overlay.is-visible .proven-auth-actions {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.08s;
+}
+
+.proven-auth-overlay.is-visible .proven-auth-hackathon-notice {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.12s;
+}
 
 .proven-auth-wallpaper-bg {
   position: absolute;
@@ -120,7 +152,6 @@
   mix-blend-mode: screen;
 }
 
-
 .proven-ios-drag-handle {
   display: none;
   width: 36px;
@@ -131,7 +162,6 @@
   position: relative;
   z-index: 10;
 }
-
 
 .proven-auth-close-btn {
   position: absolute;
@@ -166,7 +196,6 @@
   z-index: 5;
 }
 
-
 .proven-auth-header {
   display: flex;
   flex-direction: column;
@@ -189,7 +218,7 @@
 }
 
 .proven-auth-title {
-  font-family: 'Newsreader', 'Source Serif 4', 'Charter', Georgia, serif;
+  font-family: 'Newsreader', 'Source Serif 4', Georgia, serif;
   font-size: clamp(1.85rem, 4vw, 2.2rem);
   font-weight: 500;
   color: #ffffff;
@@ -205,7 +234,6 @@
   max-width: 340px;
 }
 
-
 .proven-auth-actions {
   display: flex;
   flex-direction: column;
@@ -214,6 +242,17 @@
   width: 100%;
 }
 
+.proven-auth-error-banner {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 6px;
+  animation: authFadeIn 0.2s ease;
+}
 
 .proven-google-auth-btn {
   display: flex;
@@ -244,13 +283,66 @@
     0 0 20px rgba(66, 133, 244, 0.25);
 }
 
-.proven-google-auth-btn:active:not(:disabled) {
+.proven-gmail-otp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(185, 28, 28, 0.06) 100%);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 12px;
+  color: #ffe4e6;
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.proven-gmail-otp-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.proven-gmail-otp-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.proven-gmail-otp-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.26) 0%, rgba(220, 38, 38, 0.15) 100%);
+  border-color: rgba(248, 113, 113, 0.7);
+  color: #ffffff;
+  transform: scale(1.02);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(239, 68, 68, 0.38);
+}
+
+.proven-gmail-otp-btn:active:not(:disabled) {
   transform: scale(0.97);
 }
 
-.proven-google-auth-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.proven-gmail-icon {
+  color: #f87171;
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.proven-gmail-otp-btn:hover .proven-gmail-icon {
+  color: #ffffff;
+  transform: scale(1.14) rotate(-6deg);
 }
 
 .proven-btn-spinner {
@@ -261,7 +353,6 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
 
 .proven-auth-divider {
   display: flex;
@@ -296,22 +387,216 @@
   gap: 8px !important;
 }
 
-.proven-instant-access-btn .proven-btn-content {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
+/* OTP FORM & INPUTS */
+.proven-otp-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  animation: authFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.proven-instant-access-btn .proven-btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  margin-top: 1px;
+.proven-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
 }
 
+.proven-input-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
+}
 
+.proven-input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.proven-field-icon {
+  position: absolute;
+  left: 14px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.proven-email-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.92rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.proven-email-input:focus {
+  border-color: #3b82f6;
+  background: rgba(15, 23, 42, 0.85);
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.25);
+}
+
+/* ANTI BOT CHECKBOX WIDGET */
+.proven-bot-check-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s ease;
+}
+
+.proven-bot-check-box:hover {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.proven-bot-check-box.is-verified {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.proven-bot-check-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proven-bot-checkbox {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.proven-bot-empty-square {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #64748b;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.proven-bot-check-box:hover .proven-bot-empty-square {
+  border-color: #94a3b8;
+}
+
+.proven-bot-check-icon {
+  color: #10b981;
+}
+
+.proven-bot-text-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.proven-bot-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.proven-bot-check-box.is-verified .proven-bot-title {
+  color: #34d399;
+}
+
+.proven-bot-subtitle {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.proven-bot-shield-icon {
+  color: #64748b;
+}
+
+.proven-bot-check-box.is-verified .proven-bot-shield-icon {
+  color: #10b981;
+}
+
+/* 6-DIGIT OTP DIGITS GRID */
+.proven-otp-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.proven-otp-digits-grid {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.proven-otp-digit-box {
+  width: 100%;
+  height: 48px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.proven-otp-digit-box:focus {
+  border-color: #38bdf8;
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+  transform: scale(1.04);
+}
+
+.proven-otp-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.proven-resend-code-btn,
+.proven-back-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.proven-resend-code-btn:hover:not(:disabled),
+.proven-back-mode-btn:hover:not(:disabled) {
+  color: #60a5fa;
+}
+
+.proven-resend-code-btn:disabled {
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.proven-back-mode-btn {
+  margin-top: 4px;
+  justify-content: center;
+}
+
+/* HACKATHON NOTICE */
 .proven-auth-hackathon-notice {
   background: rgba(37, 99, 235, 0.06);
   border: 1px solid rgba(59, 130, 246, 0.22);
@@ -350,7 +635,7 @@
   font-weight: 600;
 }
 
-
+/* SUCCESS STATE */
 .proven-auth-success-state {
   display: flex;
   flex-direction: column;
@@ -426,7 +711,6 @@
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
-
 
 @media (max-width: 600px) {
   .proven-auth-overlay {
